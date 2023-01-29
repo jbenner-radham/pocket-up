@@ -1,0 +1,11 @@
+[package]
+name = "pocket-up"
+version = "0.1.0"
+edition = "2021"
+description = "A forthcoming GUI app to download and update openFPGA cores on the Analogue Pocket."
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+gtk = { version = "0.5.5", package = "gtk4", features = ["v4_6"] }
