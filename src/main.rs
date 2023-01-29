@@ -43,19 +43,13 @@ fn build_core_row(core_name: &str) -> gtk::Box {
 fn on_activate(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
     let cores = vec!["Core One", "Core Two", "Core Three"];
-    let margin = 12;
-    let row_spacing: i32 = cores
-        .len()
-        .try_into()
-        .expect("Too many cores loaded. Could not convert to i32");
-
+    let parent_margin = 12;
     let parent = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
-        .margin_top(margin)
-        .margin_bottom(margin)
-        .margin_start(margin)
-        .margin_end(margin)
-        .spacing(row_spacing + 1)
+        .margin_top(parent_margin)
+        .margin_bottom(parent_margin)
+        .margin_start(parent_margin)
+        .margin_end(parent_margin)
         .halign(gtk::Align::Center)
         .build();
 
@@ -64,7 +58,14 @@ fn on_activate(application: &gtk::Application) {
         parent.append(&row);
     }
 
-    let update_button = gtk::Button::builder().label("Update").build();
+    let update_button_margin = 8;
+    let update_button = gtk::Button::builder()
+        .label("Update")
+        .margin_top(update_button_margin)
+        .margin_bottom(update_button_margin)
+        .margin_start(update_button_margin)
+        .margin_end(update_button_margin)
+        .build();
 
     parent.append(&update_button);
     window.set_title(Some("PocketUp"));
