@@ -1,4 +1,4 @@
-use gtk::glib::{self,clone};
+use gtk::glib::{self, clone};
 use gtk::prelude::*;
 
 const APP_ID: &str = "com.radioactivehamster.pocket_up";
@@ -45,7 +45,7 @@ fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog
     let action = gtk::FileChooserAction::SelectFolder;
     let buttons = &[
         ("_Cancel", gtk::ResponseType::Cancel),
-        ("_Select", gtk::ResponseType::Accept)
+        ("_Select", gtk::ResponseType::Accept),
     ];
     // let buttons = gtk::ButtonsType::OkCancel;
 
@@ -132,9 +132,7 @@ fn main() {
     }
 
     // Create a new application with the builder pattern
-    let app = gtk::Application::builder()
-        .application_id(APP_ID)
-        .build();
+    let app = gtk::Application::builder().application_id(APP_ID).build();
 
     app.connect_activate(on_activate);
     app.run();
