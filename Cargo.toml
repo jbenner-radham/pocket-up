@@ -1,9 +1,12 @@
 [package]
 name = "pocket-up"
 version = "0.1.0"
-edition = "2021"
 description = "A forthcoming GUI app to download and update openFPGA cores on the Analogue Pocket."
+authors = ["James Benner <james.benner@gmail.com>"]
 license = "MIT"
+repository = "https://github.com/jbenner-radham/pocket-up/"
+homepage = "https://github.com/jbenner-radham/pocket-up/"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
