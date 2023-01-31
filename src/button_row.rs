@@ -50,7 +50,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
 
             if response == gtk::ResponseType::Accept {
                 if let Some(dir) = dialog.file() {
-                    println!("{}", dir.parse_name().to_string());
+                    println!("{}", dir.parse_name());
                 }
             }
 
