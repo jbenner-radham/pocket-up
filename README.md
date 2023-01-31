@@ -10,4 +10,4 @@ Install
 
 License
 -------
-The MIT License. See the license file(s) for details.
+The MIT License. See the [license file](LICENSE) for details.
