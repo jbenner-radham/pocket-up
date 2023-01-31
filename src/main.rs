@@ -104,13 +104,13 @@ fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
 fn on_activate(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
     let cores = vec!["Core One", "Core Two", "Core Three"];
-    let parent_margin = 12;
+    let margin = 12;
     let parent = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
-        .margin_top(parent_margin)
-        .margin_bottom(parent_margin)
-        .margin_start(parent_margin)
-        .margin_end(parent_margin)
+        .margin_top(margin)
+        .margin_bottom(margin)
+        .margin_start(margin)
+        .margin_end(margin)
         .halign(gtk::Align::Center)
         .build();
     let button_row = build_button_row(&window);
