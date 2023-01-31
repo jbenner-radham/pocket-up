@@ -1,3 +1,4 @@
+use gtk::glib::{self,clone};
 use gtk::prelude::*;
 
 const APP_ID: &str = "com.radioactivehamster.pocket_up";
@@ -10,7 +11,6 @@ fn build_core_row(core_name: &str) -> gtk::Box {
         .margin_bottom(margin)
         .margin_start(margin)
         .margin_end(margin)
-        .spacing(2)
         .valign(gtk::Align::Center)
         .halign(gtk::Align::Start)
         .build();
@@ -39,6 +39,67 @@ fn build_core_row(core_name: &str) -> gtk::Box {
     row
 }
 
+fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog {
+    let title = Some("Select a Directory");
+    let parent = Some(window);
+    let action = gtk::FileChooserAction::SelectFolder;
+    let buttons = &[
+        ("_Cancel", gtk::ResponseType::Cancel),
+        ("_Select", gtk::ResponseType::Accept)
+    ];
+    // let buttons = gtk::ButtonsType::OkCancel;
+
+    gtk::FileChooserDialog::new(title, parent, action, buttons)
+}
+
+fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
+    let margin = 8;
+    let row = gtk::Box::builder()
+        .orientation(gtk::Orientation::Horizontal)
+        .margin_top(margin)
+        .margin_bottom(margin)
+        .margin_start(margin)
+        .margin_end(margin)
+        .valign(gtk::Align::Center)
+        .halign(gtk::Align::Center)
+        .build();
+    let directory_button = gtk::Button::builder()
+        .icon_name("folder")
+        .margin_top(margin)
+        .margin_bottom(margin)
+        .margin_start(margin)
+        .margin_end(margin)
+        .build();
+    let update_button = gtk::Button::builder()
+        .label("Update")
+        .margin_top(margin)
+        .margin_bottom(margin)
+        .margin_start(margin)
+        .margin_end(margin)
+        .build();
+
+    directory_button.connect_clicked(clone!(@weak window => move |_| {
+        let file_chooser = build_file_chooser(&window);
+
+        file_chooser.run_async(|dialog, response| {
+            dialog.close();
+
+            if response == gtk::ResponseType::Accept {
+                if let Some(dir) = dialog.file() {
+                    println!("{}", dir.parse_name().to_string());
+                }
+            }
+
+            println!("{:?}", response);
+        });
+    }));
+
+    row.append(&directory_button);
+    row.append(&update_button);
+
+    row
+}
+
 // When the application is launched...
 fn on_activate(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -52,22 +113,14 @@ fn on_activate(application: &gtk::Application) {
         .margin_end(parent_margin)
         .halign(gtk::Align::Center)
         .build();
+    let button_row = build_button_row(&window);
 
     for core in cores {
         let row = build_core_row(core);
         parent.append(&row);
     }
 
-    let update_button_margin = 8;
-    let update_button = gtk::Button::builder()
-        .label("Update")
-        .margin_top(update_button_margin)
-        .margin_bottom(update_button_margin)
-        .margin_start(update_button_margin)
-        .margin_end(update_button_margin)
-        .build();
-
-    parent.append(&update_button);
+    parent.append(&button_row);
     window.set_title(Some("PocketUp"));
     window.set_child(Some(&parent));
     window.present();
@@ -79,7 +132,10 @@ fn main() {
     }
 
     // Create a new application with the builder pattern
-    let app = gtk::Application::builder().application_id(APP_ID).build();
+    let app = gtk::Application::builder()
+        .application_id(APP_ID)
+        .build();
+
     app.connect_activate(on_activate);
     app.run();
 }
