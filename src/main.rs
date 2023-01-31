@@ -8,8 +8,8 @@ use gtk::prelude::*;
 const APP_ID: &str = "com.radioactivehamster.pocket_up";
 
 fn main() {
-    if gtk::gio::Application::id_is_valid(APP_ID) {
-        println!("ID is valid!");
+    if !gtk::gio::Application::id_is_valid(APP_ID) {
+        panic!("The GTK Application ID is not valid!");
     }
 
     // Create a new application with the builder pattern
