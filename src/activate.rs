@@ -12,13 +12,18 @@ fn build_parent() -> gtk::Box {
         .margin_start(margin)
         .margin_end(margin)
         .halign(gtk::Align::Center)
+        .valign(gtk::Align::Center)
         .build()
 }
 
 // When the application is launched...
 pub fn on_activate(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
-    let cores = vec!["Core One", "Core Two", "Core Three"];
+    let cores = vec![
+        "Core One by Person A",
+        "Core Two by Person B",
+        "Core Three by Person C",
+    ];
     let parent = build_parent();
     let button_row = build_button_row(&window);
 
