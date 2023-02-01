@@ -18,6 +18,7 @@ pub fn build_core_row(core_name: &str) -> gtk::Box {
         .margin_end(margin)
         .valign(gtk::Align::Center)
         .halign(gtk::Align::Center)
+        .sensitive(false) // Disable initially.
         .state(false)
         .build();
     let label = gtk::Label::builder()

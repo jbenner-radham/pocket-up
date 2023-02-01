@@ -40,6 +40,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         .margin_bottom(margin)
         .margin_start(margin)
         .margin_end(margin)
+        .sensitive(false) // Disable initially.
         .build();
 
     directory_button.connect_clicked(clone!(@weak window => move |_| {
