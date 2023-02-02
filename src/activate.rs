@@ -3,6 +3,8 @@ use crate::core_row::build_core_row;
 use gtk::{gio, self};
 use gtk::prelude::*;
 
+const APP_NAME: &str = "PocketUp";
+
 fn build_parent() -> gtk::Box {
     let margin = 12;
 
@@ -20,7 +22,7 @@ fn build_parent() -> gtk::Box {
 fn build_header_bar() -> gtk::HeaderBar {
     let menu = gio::Menu::new();
 
-    menu.append(Some("_About PocketUp"), Some("app.about"));
+    menu.append(Some(&format!("_About {APP_NAME}")), Some("app.about"));
 
     let header_bar = gtk::HeaderBar::new();
     let menu_model = gio::MenuModel::from(menu);
@@ -59,7 +61,7 @@ pub fn on_activate(application: &gtk::Application) {
     }
 
     parent.append(&button_row);
-    window.set_title(Some("PocketUp"));
+    window.set_title(Some(APP_NAME));
     window.set_child(Some(&parent));
     window.present();
 }
