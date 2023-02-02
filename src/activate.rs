@@ -19,11 +19,8 @@ fn build_parent() -> gtk::Box {
 
 fn build_header_bar() -> gtk::HeaderBar {
     let menu = gio::Menu::new();
-    let section = gio::Menu::new();
 
-    menu.append(Some("_About"), Some("app.about"));
-    section.append(Some("Incendio"), Some("app.incendio"));
-    menu.append_section(Some("Offensive Spells"), &section);
+    menu.append(Some("_About PocketUp"), Some("app.about"));
 
     let header_bar = gtk::HeaderBar::new();
     let menu_model = gio::MenuModel::from(menu);
@@ -47,6 +44,8 @@ pub fn on_activate(application: &gtk::Application) {
     ];
     let parent = build_parent();
     let button_row = build_button_row(&window);
+
+    // Tie this into gtk::AboutDialog::new() somehow.
     let action_about = gio::SimpleAction::new("about", None);
     let header_bar = build_header_bar();
 
