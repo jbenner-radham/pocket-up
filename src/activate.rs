@@ -1,5 +1,6 @@
 use crate::button_row::build_button_row;
 use crate::core_row::build_core_row;
+use gtk::{gio, self};
 use gtk::prelude::*;
 
 fn build_parent() -> gtk::Box {
@@ -16,6 +17,26 @@ fn build_parent() -> gtk::Box {
         .build()
 }
 
+fn build_header_bar() -> gtk::HeaderBar {
+    let menu = gio::Menu::new();
+    let section = gio::Menu::new();
+
+    menu.append(Some("_About"), Some("app.about"));
+    section.append(Some("Incendio"), Some("app.incendio"));
+    menu.append_section(Some("Offensive Spells"), &section);
+
+    let header_bar = gtk::HeaderBar::new();
+    let menu_model = gio::MenuModel::from(menu);
+    let menu_button = gtk::MenuButton::builder()
+        .icon_name("open-menu-symbolic")
+        .menu_model(&menu_model)
+        .build();
+
+    header_bar.pack_end(&menu_button);
+
+    header_bar
+}
+
 // When the application is launched...
 pub fn on_activate(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -26,6 +47,11 @@ pub fn on_activate(application: &gtk::Application) {
     ];
     let parent = build_parent();
     let button_row = build_button_row(&window);
+    let action_about = gio::SimpleAction::new("about", None);
+    let header_bar = build_header_bar();
+
+    window.add_action(&action_about);
+    window.set_titlebar(Some(&header_bar));
 
     for core in cores {
         let core_row = build_core_row(core);
