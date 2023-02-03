@@ -46,11 +46,18 @@ pub fn on_activate(application: &gtk::Application) {
     ];
     let parent = build_parent();
     let button_row = build_button_row(&window);
-
-    // Tie this into gtk::AboutDialog::new() somehow.
     let action_about = gio::SimpleAction::new("about", None);
 
-    action_about.connect_activate(|_, _| println!("About!"));
+    action_about.connect_activate(|_, _| {
+        let about_dialog = gtk::AboutDialog::builder()
+            .program_name(APP_NAME)
+            .title(&format!("About {APP_NAME}"))
+            .authors(vec!["James Benner <james.benner@gmail.com>".to_string()])
+            .license_type(gtk::License::MitX11)
+            .build();
+
+        about_dialog.present();
+    });
 
     let header_bar = build_header_bar();
 
