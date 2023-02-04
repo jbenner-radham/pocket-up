@@ -29,6 +29,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         // and supposedly here: https://developer.gnome.org/gtk/stable/gtk-Stock-Items.html
         // if the later ever comes back online.
         .icon_name("folder")
+        .tooltip_text("Select Folder")
         .margin_top(margin)
         .margin_bottom(margin)
         .margin_start(margin)
