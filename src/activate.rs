@@ -22,6 +22,9 @@ fn build_parent() -> gtk::Box {
 fn build_header_bar() -> gtk::HeaderBar {
     let menu = gio::Menu::new();
 
+    menu.append(Some("Help"), Some("win.help"));
+
+    // https://developer.gnome.org/hig/patterns/controls/menus.html#standard-primary-menu-items
     menu.append(Some(&format!("_About {APP_NAME}")), Some("win.about"));
 
     let header_bar = gtk::HeaderBar::new();
