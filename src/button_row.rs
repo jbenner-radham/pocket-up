@@ -2,7 +2,7 @@ use gtk::glib::{self, clone};
 use gtk::prelude::*;
 
 fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog {
-    let title = Some("Select a Directory");
+    let title = Some("Select a Folder");
     let parent = Some(window);
     let action = gtk::FileChooserAction::SelectFolder;
     let buttons = &[
