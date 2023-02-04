@@ -28,6 +28,7 @@ fn build_header_bar() -> gtk::HeaderBar {
     let menu_model = gio::MenuModel::from(menu);
     let menu_button = gtk::MenuButton::builder()
         .icon_name("open-menu-symbolic")
+        .tooltip_text("Main Menu") // https://developer.gnome.org/hig/patterns/controls/menus.html#primary-menus
         .menu_model(&menu_model)
         .build();
 
