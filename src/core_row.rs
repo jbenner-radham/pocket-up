@@ -1,6 +1,6 @@
 use gtk::prelude::*;
 
-pub fn build_core_row(core_name: &str) -> gtk::Box {
+pub fn build_core_row(core_description: &str) -> gtk::Box {
     let margin = 8;
     let row = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)
@@ -22,7 +22,7 @@ pub fn build_core_row(core_name: &str) -> gtk::Box {
         .state(false)
         .build();
     let label = gtk::Label::builder()
-        .label(core_name)
+        .label(core_description)
         .margin_top(margin)
         .margin_bottom(margin)
         .margin_start(margin)
