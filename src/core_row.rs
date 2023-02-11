@@ -2,12 +2,13 @@ use gtk::prelude::*;
 
 pub fn build_core_row(core_description: &str) -> gtk::Box {
     let margin = 8;
+    let row_horizontal_margin = 28;
     let row = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)
         .margin_top(margin)
         .margin_bottom(margin)
-        .margin_start(margin)
-        .margin_end(margin)
+        .margin_start(row_horizontal_margin)
+        .margin_end(row_horizontal_margin)
         .valign(gtk::Align::Center)
         .halign(gtk::Align::Start)
         .build();
