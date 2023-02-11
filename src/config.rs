@@ -15,7 +15,7 @@ impl PocketCore {
     }
 }
 
-pub const POCKET_CORES: [PocketCore; 22] = [
+pub const POCKET_CORES: [PocketCore; 26] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -129,5 +129,25 @@ pub const POCKET_CORES: [PocketCore; 22] = [
         name: "Konami's Ping Pong",
         author: "jotego",
         repo: "https://github.com/jotego/jtbin",
+    },
+    PocketCore {
+        name: "Lunar Lander for Analogue Pocket",
+        author: "ericlewis",
+        repo: "https://github.com/ericlewis/openfpga-lunarlander",
+    },
+    PocketCore {
+        name: "Mikie",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+    },
+    PocketCore {
+        name: "Nekketsu Kouha Kunio-kun",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+    },
+    PocketCore {
+        name: "Neo Geo",
+        author: "Mazamars312",
+        repo: "https://github.com/Mazamars312/Analogue_Pocket_Neogeo",
     },
 ];
