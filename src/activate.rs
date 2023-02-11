@@ -71,10 +71,7 @@ pub fn on_activate(app: &gtk::Application) {
     let header = build_header();
     let scrolled_window = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
-        .min_content_width(265)
-        .min_content_height(500)
-        .hexpand(true)
-        .vexpand(true)
+        .propagate_natural_height(true)
         .build();
     let scrolled_child = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
