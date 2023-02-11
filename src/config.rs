@@ -9,7 +9,7 @@ pub struct PocketCore {
     pub repo: &'static str,
 }
 
-pub const POCKET_CORES: [PocketCore; 17] = [
+pub const POCKET_CORES: [PocketCore; 22] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -28,7 +28,7 @@ pub const POCKET_CORES: [PocketCore; 17] = [
     PocketCore {
         name: "Atari's 1972 Pong",
         author: "agg23",
-        repo: "https://github.com/agg23/openfpga-pong"
+        repo: "https://github.com/agg23/openfpga-pong",
     },
     PocketCore {
         name: "Bank Panic",
@@ -62,12 +62,12 @@ pub const POCKET_CORES: [PocketCore; 17] = [
     PocketCore {
         name: "Contra",
         author: "jotego",
-        repo: "https://github.com/jotego/jtbin"
+        repo: "https://github.com/jotego/jtbin",
     },
     PocketCore {
         name: "Dig Dug",
         author: "opengateware",
-        repo: "https://github.com/opengateware/arcade-digdug"
+        repo: "https://github.com/opengateware/arcade-digdug",
     },
     PocketCore {
         name: "Dominos for Analogue Pocket",
@@ -98,5 +98,30 @@ pub const POCKET_CORES: [PocketCore; 17] = [
         name: "Genesis for Analogue Pocket",
         author: "opengateware",
         repo: "https://github.com/opengateware/openfpga-genesis",
+    },
+    PocketCore {
+        name: "Ghosts 'n Goblins",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+    },
+    PocketCore {
+        name: "Green Beret",
+        author: "opengateware",
+        repo: "https://github.com/opengateware/arcade-gberet",
+    },
+    PocketCore {
+        name: "Kicker",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+    },
+    PocketCore {
+        name: "Kingdom Grandprix",
+        author: "psomashekar",
+        repo: "https://github.com/psomashekar/pram0d-pocket-dist-public",
+    },
+    PocketCore {
+        name: "Konami's Ping Pong",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
     },
 ];
