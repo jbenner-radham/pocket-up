@@ -92,8 +92,7 @@ pub fn on_activate(app: &gtk::Application) {
     window.set_titlebar(Some(&header_bar));
 
     for core in POCKET_CORES {
-        let core_description = format!("{} by {}", core.name, core.author);
-        let core_row = build_core_row(&core_description);
+        let core_row = build_core_row(&core.description());
 
         scrolled_child.append(&core_row);
     }

@@ -9,6 +9,12 @@ pub struct PocketCore {
     pub repo: &'static str,
 }
 
+impl PocketCore {
+    pub fn description(&self) -> String {
+        format!("{} by {}", self.name, self.author)
+    }
+}
+
 pub const POCKET_CORES: [PocketCore; 22] = [
     PocketCore {
         name: "Amiga 500",
