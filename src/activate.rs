@@ -19,6 +19,21 @@ fn build_parent() -> gtk::Box {
         .build()
 }
 
+fn build_header() -> gtk::Label {
+    let margin = 8;
+    let header = gtk::Label::builder()
+        .margin_top(margin)
+        .margin_bottom(margin)
+        .margin_start(margin)
+        .margin_end(margin)
+        .build();
+
+    // https://docs.gtk.org/Pango/pango_markup.html
+    header.set_markup(r#"<span foreground="blue"><big><b>openFPGA Cores</b></big></span>"#);
+
+    header
+}
+
 fn build_about_dialog() -> gtk::AboutDialog {
     gtk::AboutDialog::builder()
         .program_name(APP_NAME)
@@ -53,10 +68,11 @@ fn build_header_bar() -> gtk::HeaderBar {
 pub fn on_activate(app: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(app);
     let parent = build_parent();
+    let header = build_header();
     let scrolled_window = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
-        .min_content_width(255)
-        .min_content_height(600)
+        .min_content_width(265)
+        .min_content_height(500)
         .hexpand(true)
         .vexpand(true)
         .build();
@@ -83,6 +99,7 @@ pub fn on_activate(app: &gtk::Application) {
     }
 
     scrolled_window.set_child(Some(&scrolled_child));
+    parent.append(&header);
     parent.append(&scrolled_window);
     parent.append(&button_row);
     window.set_title(Some(APP_NAME));
