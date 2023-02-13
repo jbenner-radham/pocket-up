@@ -1,3 +1,5 @@
+use heck::ToKebabCase;
+
 // https://developer.gnome.org/documentation/tutorials/application-id.html
 pub const APP_ID: &str = "com.radioactivehamster.pocket_up";
 
@@ -15,6 +17,10 @@ impl PocketCore {
             r#"<b>{}</b> <span foreground="gray">by</span> <i>{}</i>"#,
             self.name, self.author
         )
+    }
+
+    pub fn settings_name(&self) -> String {
+        format!("Download Core {} by {}", self.name, self.author).to_kebab_case()
     }
 }
 

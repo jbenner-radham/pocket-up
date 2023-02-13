@@ -1,13 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schemalist>
-  <schema id="com.radioactivehamster.pocket_up" path="/com/radioactivehamster/pocket_up/">
-    <key name="is-form-enabled" type="b">
-        <default>false</default>
-        <summary>Is the openFPGA core selection form enabled?</summary>
-    </key>
-    <key name="pocket-base-dir" type="s">
-      <default>""</default>
-      <summary>Base directory of the Pocket.</summary>
-    </key>
-  </schema>
+    <schema id="com.radioactivehamster.pocket_up" path="/com/radioactivehamster/pocket_up/">
+        <key name="is-form-enabled" type="b">
+            <default>false</default>
+            <summary>Is the openFPGA core selection form enabled?</summary>
+        </key>
+        <key name="pocket-base-dir" type="s">
+            <default>""</default>
+            <summary>Base directory of the Pocket.</summary>
+        </key>
+        <key name="download-core-amiga-500-by-mazamars312" type="b">
+            <default>false</default>
+            <summary>Should download the Amiga 500 core by Mazamars312?</summary>
+        </key>
+        <key name="download-core-arduboy-for-analogue-pocket-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the Arduboy Arduboy for Analogue Pocket core by agg23?</summary>
+        </key>
+        <key name="download-core-asteroids-for-analogue-pocket-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Asteroids for Analogue Pocket core by ericlewis?</summary>
+        </key>
+        <key name="download-core-atari-s-1972-pong-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the Atari's 1972 Pong core by agg23?</summary>
+        </key>
+        <key name="download-core-bank-panic-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Bank Panic core by opengateware?</summary>
+        </key>
+        <key name="download-core-batrider-by-psomashekar" type="b">
+            <default>false</default>
+            <summary>Should download the Batrider core by psomashekar?</summary>
+        </key>
+        <key name="download-core-battle-bakraid-by-psomashekar" type="b">
+            <default>false</default>
+            <summary>Should download the Battle Bakraid core by psomashekar?</summary>
+        </key>
+        <key name="download-core-battle-garegga-by-psomashekar" type="b">
+            <default>false</default>
+            <summary>Should download the Battle Garegga core by psomashekar?</summary>
+        </key>
+        <key name="download-core-congo-bongo-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Congo Bongo core by opengateware?</summary>
+        </key>
+        <key name="download-core-contra-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Contra core by jotego?</summary>
+        </key>
+        <key name="download-core-dig-dug-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Dig Dug core by opengateware?</summary>
+        </key>
+        <key name="download-core-dominos-for-analogue-pocket-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Dominos for Analogue Pocket core by ericlewis?</summary>
+        </key>
+        <key name="download-core-donkey-kong-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Donkey Kong core by ericlewis?</summary>
+        </key>
+        <key name="download-core-double-dragon-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Double Dragon core by jotego?</summary>
+        </key>
+        <key name="download-core-double-dragon-ii-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Double Dragon II core by jotego?</summary>
+        </key>
+        <key name="download-core-galaga-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Galaga core by opengateware?</summary>
+        </key>
+        <key name="download-core-genesis-for-analogue-pocket-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Genesis for Analogue Pocket core by opengateware?</summary>
+        </key>
+        <key name="download-core-ghosts-n-goblins-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Ghosts 'n Goblins core by jotego?</summary>
+        </key>
+        <key name="download-core-green-beret-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Green Beret core by opengateware?</summary>
+        </key>
+        <key name="download-core-kicker-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Kicker core by jotego?</summary>
+        </key>
+        <key name="download-core-kingdom-grandprix-by-psomashekar" type="b">
+            <default>false</default>
+            <summary>Should download the Kingdom Grandprix core by psomashekar?</summary>
+        </key>
+        <key name="download-core-konami-s-ping-pong-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Konami's Ping Pong core by jotego?</summary>
+        </key>
+        <key name="download-core-lunar-lander-for-analogue-pocket-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Lunar Lander for Analogue Pocket core by ericlewis?</summary>
+        </key>
+        <key name="download-core-mikie-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Mikie core by jotego?</summary>
+        </key>
+        <key name="download-core-nekketsu-kouha-kunio-kun-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Nekketsu Kouha Kunio-kun core by jotego?</summary>
+        </key>
+        <key name="download-core-neo-geo-by-mazamars312" type="b">
+            <default>false</default>
+            <summary>Should download the Neo Geo core by Mazamars312?</summary>
+        </key>
+    </schema>
 </schemalist>

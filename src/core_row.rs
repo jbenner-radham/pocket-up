@@ -1,8 +1,8 @@
-use crate::config::APP_ID;
+use crate::config::{APP_ID, PocketCore};
 use gtk::prelude::*;
 use gtk::{self, gio};
 
-pub fn build_core_row(description_markup: &str) -> gtk::Box {
+pub fn build_core_row(core: &PocketCore) -> gtk::Box {
     let margin = 8;
     let row_horizontal_margin = 28;
     let row = gtk::Box::builder()
@@ -38,7 +38,11 @@ pub fn build_core_row(description_markup: &str) -> gtk::Box {
         .bind("is-form-enabled", &switch, "sensitive")
         .flags(gio::SettingsBindFlags::DEFAULT)
         .build();
-    label.set_markup(description_markup);
+    settings
+        .bind(&core.settings_name(), &switch, "state")
+        .flags(gio::SettingsBindFlags::DEFAULT)
+        .build();
+    label.set_markup(&core.description_markup());
     row.append(&switch);
     row.append(&label);
 
