@@ -35,7 +35,7 @@ pub fn build_core_row(description_markup: &str) -> gtk::Box {
     let settings = gio::Settings::new(APP_ID);
 
     settings
-        .bind("are-switches-enabled", &switch, "sensitive")
+        .bind("is-form-enabled", &switch, "sensitive")
         .flags(gio::SettingsBindFlags::DEFAULT)
         .build();
     label.set_markup(description_markup);

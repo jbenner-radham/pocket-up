@@ -61,7 +61,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
     let settings = gio::Settings::new(APP_ID);
 
     settings
-        .bind("are-switches-enabled", &update_button, "sensitive")
+        .bind("is-form-enabled", &update_button, "sensitive")
         .flags(gio::SettingsBindFlags::DEFAULT)
         .build();
 
@@ -78,7 +78,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
             if response == gtk::ResponseType::Accept {
                 if let Some(dir) = dialog.file() {
                     settings.set_string("pocket-base-dir", dir.parse_name().as_str()).expect("Unable to set pocket-base-dir setting.");
-                    settings.set_boolean("are-switches-enabled", true).expect("Could not set are-switches-enabled setting.");
+                    settings.set_boolean("is-form-enabled", true).expect("Could not set is-form-enabled setting.");
                     println!("{}", dir.parse_name());
                 }
             }

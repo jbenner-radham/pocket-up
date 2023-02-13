@@ -36,8 +36,8 @@ fn main() {
             .set_string("pocket-base-dir", "")
             .expect("Unable to set pocket-base-dir setting.");
         settings
-            .set_boolean("are-switches-enabled", false)
-            .expect("Unable to set are-switches-enabled setting.");
+            .set_boolean("is-form-enabled", false)
+            .expect("Unable to set is-form-enabled setting.");
     }
 
     // settings.set_boolean("gtk-application-prefer-dark-theme", true).expect("Could not set setting.");
