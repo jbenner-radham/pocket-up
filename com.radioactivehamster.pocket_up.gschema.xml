@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schemalist>
+  <schema id="com.radioactivehamster.pocket_up" path="/com/radioactivehamster/pocket_up/">
+    <key name="are-switches-enabled" type="b">
+        <default>false</default>
+        <summary>Are the openFPGA core selection switches enabled?</summary>
+    </key>
+    <key name="pocket-base-dir" type="s">
+      <default>''</default>
+      <summary>Base directory of the Pocket.</summary>
+    </key>
+  </schema>
+</schemalist>

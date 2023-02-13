@@ -1,5 +1,9 @@
+use crate::config::APP_ID;
+// use crate::downloader::fetch_neogeo_core;
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
+use gtk::{self, gio};
+use std::path::Path;
 
 fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog {
     let title = Some("Select a Folder");
@@ -9,8 +13,19 @@ fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog
         ("_Cancel", gtk::ResponseType::Cancel),
         ("_Select", gtk::ResponseType::Accept),
     ];
+    let settings = gio::Settings::new(APP_ID);
+    let file_chooser = gtk::FileChooserDialog::new(title, parent, action, buttons);
+    let pocket_base_dir = settings.get::<String>("pocket-base-dir");
+    let path = Path::new(&pocket_base_dir);
 
-    gtk::FileChooserDialog::new(title, parent, action, buttons)
+    if !pocket_base_dir.is_empty() && path.exists() {
+        let file = gio::File::for_path(path);
+        file_chooser
+            .set_file(&file)
+            .expect("Should have been able to set file.");
+    }
+
+    file_chooser
 }
 
 pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
@@ -48,10 +63,15 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         let file_chooser = build_file_chooser(&window);
 
         file_chooser.run_async(|dialog, response| {
+            let settings = gio::Settings::new(APP_ID);
+
+            println!("Setting: {}", settings.string("pocket-base-dir"));
+
             dialog.close();
 
             if response == gtk::ResponseType::Accept {
                 if let Some(dir) = dialog.file() {
+                    settings.set_string("pocket-base-dir", dir.parse_name().as_str()).expect("Unable to set setting.");
                     println!("{}", dir.parse_name());
                 }
             }
@@ -59,6 +79,8 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
             println!("{:?}", response);
         });
     }));
+
+    // update_button.connect_clicked(|_| fetch_neogeo_core());
 
     row.append(&directory_button);
     row.append(&update_button);
