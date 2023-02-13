@@ -66,6 +66,10 @@ fn build_header_bar() -> gtk::HeaderBar {
 
 // When the application is launched...
 pub fn on_activate(app: &gtk::Application) {
+    // if let Some(settings) = gtk::Settings::default() {
+    //     settings.set_gtk_application_prefer_dark_theme(true);
+    // }
+
     let window = gtk::ApplicationWindow::new(app);
     let parent = build_parent();
     let header = build_header();
