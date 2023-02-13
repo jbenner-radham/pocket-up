@@ -1,4 +1,6 @@
+use crate::config::APP_ID;
 use gtk::prelude::*;
+use gtk::{self, gio};
 
 pub fn build_core_row(description_markup: &str) -> gtk::Box {
     let margin = 8;
@@ -30,7 +32,12 @@ pub fn build_core_row(description_markup: &str) -> gtk::Box {
         .valign(gtk::Align::Center)
         .halign(gtk::Align::Center)
         .build();
+    let settings = gio::Settings::new(APP_ID);
 
+    settings
+        .bind("are-switches-enabled", &switch, "sensitive")
+        .flags(gio::SettingsBindFlags::DEFAULT)
+        .build();
     label.set_markup(description_markup);
     row.append(&switch);
     row.append(&label);

@@ -58,6 +58,12 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         .margin_end(margin)
         .sensitive(false) // Disable initially.
         .build();
+    let settings = gio::Settings::new(APP_ID);
+
+    settings
+        .bind("are-switches-enabled", &update_button, "sensitive")
+        .flags(gio::SettingsBindFlags::DEFAULT)
+        .build();
 
     directory_button.connect_clicked(clone!(@weak window => move |_| {
         let file_chooser = build_file_chooser(&window);
@@ -71,7 +77,8 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
 
             if response == gtk::ResponseType::Accept {
                 if let Some(dir) = dialog.file() {
-                    settings.set_string("pocket-base-dir", dir.parse_name().as_str()).expect("Unable to set setting.");
+                    settings.set_string("pocket-base-dir", dir.parse_name().as_str()).expect("Unable to set pocket-base-dir setting.");
+                    settings.set_boolean("are-switches-enabled", true).expect("Could not set are-switches-enabled setting.");
                     println!("{}", dir.parse_name());
                 }
             }
