@@ -77,8 +77,12 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
 
             if response == gtk::ResponseType::Accept {
                 if let Some(dir) = dialog.file() {
-                    settings.set_string("pocket-base-dir", dir.parse_name().as_str()).expect("Unable to set pocket-base-dir setting.");
-                    settings.set_boolean("is-form-enabled", true).expect("Could not set is-form-enabled setting.");
+                    settings
+                        .set_string("pocket-base-dir", dir.parse_name().as_str())
+                        .expect("Unable to set pocket-base-dir setting.");
+                    settings
+                        .set_boolean("is-form-enabled", true)
+                        .expect("Could not set is-form-enabled setting.");
                     println!("{}", dir.parse_name());
                 }
             }
