@@ -1,5 +1,5 @@
-use crate::config::APP_ID;
-// use crate::downloader::fetch_neogeo_core;
+use crate::config::{PocketCore, APP_ID, POCKET_CORES};
+use crate::downloader::{fetch_download, fetch_github_release};
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
@@ -69,13 +69,11 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         let file_chooser = build_file_chooser(&window);
 
         file_chooser.run_async(|dialog, response| {
-            let settings = gio::Settings::new(APP_ID);
-
-            println!("Setting: {}", settings.string("pocket-base-dir"));
-
             dialog.close();
 
             if response == gtk::ResponseType::Accept {
+                let settings = gio::Settings::new(APP_ID);
+
                 if let Some(dir) = dialog.file() {
                     settings
                         .set_string("pocket-base-dir", dir.parse_name().as_str())
@@ -86,12 +84,31 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                     println!("{}", dir.parse_name());
                 }
             }
-
-            println!("{:?}", response);
         });
     }));
 
-    // update_button.connect_clicked(|_| fetch_neogeo_core());
+    update_button.connect_clicked(|_| {
+        let settings = gio::Settings::new(APP_ID);
+        // let cores_to_download = POCKET_CORES
+        //     .iter()
+        //     .filter(|core| settings.get::<bool>(&core.settings_name()))
+        //     .collect::<Vec<&PocketCore>>()
+        //     .len();
+
+        for core in POCKET_CORES {
+            let should_download_core = settings.get::<bool>(&core.settings_name());
+
+            if !should_download_core {
+                continue;
+            }
+
+            if let Some(url) = core.download_url {
+                fetch_download(url);
+            } else {
+                fetch_github_release(core.repo);
+            }
+        }
+    });
 
     row.append(&directory_button);
     row.append(&update_button);

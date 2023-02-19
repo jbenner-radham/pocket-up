@@ -10,6 +10,8 @@ use gtk::gio;
 use gtk::prelude::*;
 use std::path::Path;
 
+// https://docs.gtk.org/gtk4/visual_index.html
+
 fn main() {
     if !gio::Application::id_is_valid(APP_ID) {
         panic!("The GTK Application ID is not valid!");
@@ -26,6 +28,9 @@ fn main() {
     app.connect_activate(on_activate);
     app.run();
 
+    // let gtk_settings = gtk::Settings::from(gtk::Settings::default().unwrap());
+    // gtk_settings.set_gtk_application_prefer_dark_theme(true);
+
     let settings = gio::Settings::new(APP_ID);
     let pocket_base_dir = settings.get::<String>("pocket-base-dir");
     let path = Path::new(&pocket_base_dir);
@@ -39,6 +44,4 @@ fn main() {
             .set_boolean("is-form-enabled", false)
             .expect("Unable to set is-form-enabled setting.");
     }
-
-    // settings.set_boolean("gtk-application-prefer-dark-theme", true).expect("Could not set setting.");
 }

@@ -109,6 +109,7 @@ pub const POCKET_CORES: [PocketCore; 26] = [
         repo: "https://github.com/ericlewis/openfpga-dominos",
         download_url: None,
     },
+    // TODO: This is a pre-release so it doesn't show up using the GitHub latest release API. Work around this!
     PocketCore {
         name: "Donkey Kong",
         author: "ericlewis",

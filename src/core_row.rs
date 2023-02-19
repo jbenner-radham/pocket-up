@@ -1,4 +1,4 @@
-use crate::config::{APP_ID, PocketCore};
+use crate::config::{PocketCore, APP_ID};
 use gtk::prelude::*;
 use gtk::{self, gio};
 
