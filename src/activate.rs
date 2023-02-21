@@ -10,9 +10,11 @@ use gtk::prelude::*;
 use gtk::{self, gio};
 
 pub fn on_activate(app: &gtk::Application) {
-    // if let Some(settings) = gtk::Settings::default() {
-    //     settings.set_gtk_application_prefer_dark_theme(true);
-    // }
+    // https://developer-old.gnome.org/gtk4/stable/GtkSettings.html
+    if let Some(settings) = gtk::Settings::default() {
+        // settings.set_gtk_application_prefer_dark_theme(true);
+        settings.set_gtk_entry_select_on_focus(false);
+    }
 
     let window = gtk::ApplicationWindow::new(app);
     let parent = build_parent();
