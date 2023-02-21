@@ -27,8 +27,6 @@ pub fn on_activate(app: &gtk::Application) {
         .build();
     let scrolled_child = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
-        .hexpand(true)
-        .vexpand(true)
         .build();
     let button_row = build_button_row(&window);
     let action_add_github_access_token = gio::SimpleAction::new("add-github-access-token", None);
