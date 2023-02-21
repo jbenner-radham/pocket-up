@@ -13,6 +13,8 @@ pub fn on_activate(app: &gtk::Application) {
     // https://developer-old.gnome.org/gtk4/stable/GtkSettings.html
     if let Some(settings) = gtk::Settings::default() {
         // settings.set_gtk_application_prefer_dark_theme(true);
+
+        // Hack to work around the issue with `gtk::Entry` crashing on left or right keypress.
         settings.set_gtk_entry_select_on_focus(false);
     }
 
