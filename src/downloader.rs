@@ -10,10 +10,11 @@ use zip::ZipArchive;
 
 fn build_github_api_client() -> reqwest::blocking::Client {
     let mut default_headers = HeaderMap::new();
-    let auth_token = Some("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");
+    let settings = gio::Settings::new(APP_ID);
+    let access_token = settings.get::<String>("github-api-key");
 
-    if let Some(auth_token) = auth_token {
-        let mut auth_value = HeaderValue::from_str(format!("Bearer {auth_token}").as_str())
+    if !access_token.is_empty() {
+        let mut auth_value = HeaderValue::from_str(format!("Bearer {access_token}").as_str())
             .expect("Could not create header value.");
 
         auth_value.set_sensitive(true);

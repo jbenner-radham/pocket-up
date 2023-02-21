@@ -1,4 +1,5 @@
 mod activate;
+mod builders;
 mod button_row;
 mod config;
 mod core_row;
@@ -6,8 +7,8 @@ mod downloader;
 
 use crate::config::APP_ID;
 use activate::on_activate;
-use gtk::{gio, glib};
 use gtk::prelude::*;
+use gtk::{gio, glib};
 use std::path::Path;
 
 // https://docs.gtk.org/gtk4/visual_index.html
@@ -18,10 +19,7 @@ fn main() -> glib::ExitCode {
     }
 
     // Create a new application with the builder pattern
-    let app = gtk::Application::builder()
-        .application_id(APP_ID)
-        .build();
-
+    let app = gtk::Application::builder().application_id(APP_ID).build();
     let settings = gio::Settings::new(APP_ID);
     let pocket_base_dir = settings.get::<String>("pocket-base-dir");
     let path = Path::new(&pocket_base_dir);

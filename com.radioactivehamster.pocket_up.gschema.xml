@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <schemalist>
     <schema id="com.radioactivehamster.pocket_up" path="/com/radioactivehamster/pocket_up/">
+        <key name="github-access-token" type="s">
+            <default>""</default>
+            <summary>The optional key to query the GitHub releases API.</summary>
+        </key>
         <key name="is-form-enabled" type="b">
             <default>false</default>
             <summary>Is the openFPGA core selection form enabled?</summary>
