@@ -3,9 +3,9 @@ use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
 
-pub fn build_add_github_access_token_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
+pub fn build_set_github_access_token_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
     let modal = gtk::Window::builder()
-        .title("Add GitHub Access Token")
+        .title("Set GitHub Access Token")
         .width_request(375)
         .transient_for(window)
         .modal(true)

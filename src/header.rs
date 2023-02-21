@@ -18,15 +18,21 @@ pub fn build_header() -> gtk::Label {
 
 pub fn build_header_bar() -> gtk::HeaderBar {
     let menu = gio::Menu::new();
+    let settings_section = gio::Menu::new();
+    let info_section = gio::Menu::new();
 
-    menu.append(
-        Some("Add GitHub Access Token"),
-        Some("win.add-github-access-token"),
+    settings_section.append(
+        Some("Set GitHub Access Token"),
+        Some("win.set-github-access-token"),
     );
-    menu.append(Some("Help"), Some("win.help"));
+
+    info_section.append(Some("Help"), Some("win.help"));
 
     // https://developer.gnome.org/hig/patterns/controls/menus.html#standard-primary-menu-items
-    menu.append(Some(&format!("_About {APP_NAME}")), Some("win.about"));
+    info_section.append(Some(&format!("_About {APP_NAME}")), Some("win.about"));
+
+    menu.append_section(None, &settings_section);
+    menu.append_section(None, &info_section);
 
     let header_bar = gtk::HeaderBar::new();
     let menu_model = gio::MenuModel::from(menu);
