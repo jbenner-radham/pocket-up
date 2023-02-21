@@ -11,7 +11,7 @@ use zip::ZipArchive;
 fn build_github_api_client() -> reqwest::blocking::Client {
     let mut default_headers = HeaderMap::new();
     let settings = gio::Settings::new(APP_ID);
-    let access_token = settings.get::<String>("github-api-key");
+    let access_token = settings.get::<String>("github-access-token");
 
     if !access_token.is_empty() {
         let mut auth_value = HeaderValue::from_str(format!("Bearer {access_token}").as_str())
