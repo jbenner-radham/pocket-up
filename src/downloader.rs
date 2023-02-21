@@ -130,7 +130,6 @@ pub fn fetch_github_release(repo_url: &str) {
     let client = build_github_api_client();
     let [owner, repo] = get_owner_and_repo_from_github_url(repo_url);
     let api_url = format!("https://api.github.com/repos/{owner}/{repo}/releases/latest");
-    println!("{}", &api_url);
     let response = client
         .get(api_url)
         .send()
