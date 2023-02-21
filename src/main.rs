@@ -1,9 +1,12 @@
+mod about_dialog;
 mod activate;
-mod builders;
+mod add_github_access_token_modal;
 mod button_row;
 mod config;
 mod core_row;
 mod downloader;
+mod header;
+mod window_child;
 
 use crate::config::APP_ID;
 use activate::on_activate;

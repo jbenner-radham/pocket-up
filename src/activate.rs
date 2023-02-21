@@ -1,10 +1,10 @@
-use crate::builders::{
-    build_about_dialog, build_add_github_access_token_modal, build_header, build_header_bar,
-    build_parent,
-};
+use crate::about_dialog::build_about_dialog;
+use crate::add_github_access_token_modal::build_add_github_access_token_modal;
 use crate::button_row::build_button_row;
 use crate::config::{APP_NAME, POCKET_CORES};
 use crate::core_row::build_core_row;
+use crate::header::{build_header, build_header_bar};
+use crate::window_child::build_window_child;
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
@@ -19,7 +19,7 @@ pub fn on_activate(app: &gtk::Application) {
     }
 
     let window = gtk::ApplicationWindow::new(app);
-    let parent = build_parent();
+    let window_child = build_window_child();
     let header = build_header();
     let scrolled_window = gtk::ScrolledWindow::builder()
         .hscrollbar_policy(gtk::PolicyType::Never)
@@ -54,11 +54,11 @@ pub fn on_activate(app: &gtk::Application) {
 
     scrolled_window.set_child(Some(&scrolled_child));
 
-    parent.append(&header);
-    parent.append(&scrolled_window);
-    parent.append(&button_row);
+    window_child.append(&header);
+    window_child.append(&scrolled_window);
+    window_child.append(&button_row);
 
     window.set_title(Some(APP_NAME));
-    window.set_child(Some(&parent));
+    window.set_child(Some(&window_child));
     window.present();
 }

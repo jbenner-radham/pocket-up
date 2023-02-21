@@ -1,7 +1,7 @@
 [package]
 name = "pocket-up"
 version = "0.1.0"
-description = "A forthcoming GUI app to download and update openFPGA cores on the Analogue Pocket."
+description = "A forthcoming Linux GUI app to download and update openFPGA cores on the Analogue Pocket."
 authors = ["James Benner <james.benner@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/jbenner-radham/pocket-up/"
