@@ -5,6 +5,7 @@ mod config;
 mod core_row;
 mod downloader;
 mod header;
+mod help_window;
 mod set_github_access_token_modal;
 mod window_child;
 

@@ -3,6 +3,7 @@ use crate::button_row::build_button_row;
 use crate::config::{APP_NAME, POCKET_CORES};
 use crate::core_row::build_core_row;
 use crate::header::{build_header, build_header_bar};
+use crate::help_window::build_help_window;
 use crate::set_github_access_token_modal::build_set_github_access_token_modal;
 use crate::window_child::build_window_child;
 use gtk::glib::{self, clone};
@@ -30,17 +31,21 @@ pub fn on_activate(app: &gtk::Application) {
         .build();
     let button_row = build_button_row(&window);
     let action_set_github_access_token = gio::SimpleAction::new("set-github-access-token", None);
+    let action_help = gio::SimpleAction::new("help", None);
     let action_about = gio::SimpleAction::new("about", None);
 
     action_set_github_access_token.connect_activate(clone!(@weak window => move |_, _| {
         build_set_github_access_token_modal(&window).present();
     }));
 
+    action_help.connect_activate(|_, _| build_help_window().present());
+
     action_about.connect_activate(|_, _| build_about_dialog().present());
 
     let header_bar = build_header_bar();
 
     window.add_action(&action_set_github_access_token);
+    window.add_action(&action_help);
     window.add_action(&action_about);
     window.set_titlebar(Some(&header_bar));
 
