@@ -41,7 +41,7 @@ pub fn build_help_window() -> gtk::Window {
     let selecting_your_openfpga_cores_header = gtk::Label::new(None);
     let selecting_your_openfpga_cores_section_text = build_section_text(vec![
         "Before adding or updating your openFPGA cores you'll need to select them.",
-        r#"Simply browse the "openFPGA Cores" section to find your desired cores and click the corresponding switch to change it to the on position."#,
+        r#"Simply browse the "openFPGA Cores" section to find your desired cores and click their corresponding switches to change them to the on position."#,
     ]);
     let selecting_your_openfpga_cores_section =
         gtk::Label::new(Some(&selecting_your_openfpga_cores_section_text));
@@ -68,7 +68,7 @@ pub fn build_help_window() -> gtk::Window {
         "But if you ever have issues downloading openFPGA cores it's probably because you need to set a GitHub access token for the app.",
         "Please reference the GitHub Docs[1] website for instructions on how to do so.",
         r#"Once you've done this click the hamburger menu with the tooltip "Primary Menu" in the right hand side of the app's titlebar."#,
-        r#"From there simply click the "Set GitHub Access Token" menu option and enter your access token in the input field and click "OK"."#
+        r#"From there simply click the "Set GitHub Access Token" menu option and enter your access token in the entry field and click "OK"."#
     ]);
     let setting_a_github_access_token_section =
         gtk::Label::new(Some(&setting_a_github_access_token_section_text));
