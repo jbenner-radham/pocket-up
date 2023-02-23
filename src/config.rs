@@ -32,7 +32,7 @@ impl PocketCore {
     }
 }
 
-pub const POCKET_CORES: [PocketCore; 26] = [
+pub const POCKET_CORES: [PocketCore; 31] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -192,6 +192,36 @@ pub const POCKET_CORES: [PocketCore; 26] = [
         name: "Neo Geo",
         author: "Mazamars312",
         repo: "https://github.com/Mazamars312/Analogue_Pocket_Neogeo",
+        download_url: None,
+    },
+    PocketCore {
+        name: "Neo Geo (Overdrive)",
+        author: "Mazamars312",
+        repo: "https://github.com/Mazamars312/Analogue_Pocket_Neogeo_Overdrive",
+        download_url: None,
+    },
+    PocketCore {
+        name: "NES for Analogue Pocket",
+        author: "agg23",
+        repo: "https://github.com/agg23/openfpga-NES",
+        download_url: None,
+    },
+    PocketCore {
+        name: "Pang!",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtpang.zip"),
+    },
+    PocketCore {
+        name: "PC Engine CD",
+        author: "Mazamars312",
+        repo: "https://github.com/Mazamars312/openfpga-pcengine-cd",
+        download_url: None,
+    },
+    PocketCore {
+        name: "PC Engine for Analogue Pocket",
+        author: "agg23",
+        repo: "https://github.com/agg23/openfpga-pcengine",
         download_url: None,
     },
 ];

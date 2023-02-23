@@ -117,5 +117,25 @@
             <default>false</default>
             <summary>Should download the Neo Geo core by Mazamars312?</summary>
         </key>
+        <key name="download-core-neo-geo-overdrive-by-mazamars312" type="b">
+            <default>false</default>
+            <summary>Should download the Neo Geo (Overdrive) core by Mazamars312?</summary>
+        </key>
+        <key name="download-core-nes-for-analogue-pocket-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the NES for Analogue Pocket core by agg23?</summary>
+        </key>
+        <key name="download-core-pang-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Pang! core by jotego?</summary>
+        </key>
+        <key name="download-core-pc-engine-cd-by-mazamars312" type="b">
+            <default>false</default>
+            <summary>Should download the PC Engine CD core by Mazamars312?</summary>
+        </key>
+        <key name="download-core-pc-engine-for-analogue-pocket-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the PC Engine for Analogue Pocket core by agg23?</summary>
+        </key>
     </schema>
 </schemalist>
