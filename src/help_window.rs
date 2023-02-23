@@ -66,7 +66,7 @@ pub fn build_help_window() -> gtk::Window {
     let setting_a_github_access_token_section_text = build_section_text(vec![
         "The step is optional.",
         "But if you ever have issues downloading openFPGA cores it's probably because you need to set a GitHub access token for the app.",
-        "Please reference the GitHub Docs website for instructions on how to do so.",
+        "Please reference the GitHub Docs[1] website for instructions on how to do so.",
         r#"Once you've done this click the hamburger menu with the tooltip "Primary Menu" in the right hand side of the app's titlebar."#,
         r#"From there simply click the "Set GitHub Access Token" menu option and enter your access token in the input field and click "OK"."#
     ]);
@@ -76,6 +76,10 @@ pub fn build_help_window() -> gtk::Window {
     setting_a_github_access_token_header.set_markup(&build_section_header_markup(
         "Setting a GitHub Access Token",
     ));
+
+    let reference_link = gtk::Label::new(None);
+
+    reference_link.set_markup(r#"1. <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-personal-access-token-classic">GitHub Docs - Creating a Personal Access Token</a>"#);
 
     container.append(&main_header);
     container.append(&main_section);
@@ -87,6 +91,7 @@ pub fn build_help_window() -> gtk::Window {
     container.append(&updating_your_analogue_pocket_section);
     container.append(&setting_a_github_access_token_header);
     container.append(&setting_a_github_access_token_section);
+    container.append(&reference_link);
     help_window.set_child(Some(&container));
 
     help_window
