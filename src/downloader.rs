@@ -2,7 +2,6 @@ use crate::config::APP_ID;
 use gtk::gio;
 use gtk::prelude::*;
 use reqwest::header::{self, HeaderMap, HeaderValue};
-use serde_json;
 use std::fs::File;
 use std::path::Path;
 use std::{env, fs, io};
@@ -113,7 +112,7 @@ pub fn fetch_download(url: &str) {
     let temp_dirname = temp_dir.to_str().unwrap();
     let temp_filepath = format!("{temp_dirname}/{filename}");
 
-    match fs::create_dir_all(&temp_dirname) {
+    match fs::create_dir_all(temp_dirname) {
         Ok(_) => {}
         Err(error) => eprintln!("Could not create directory path! {error}"),
     }

@@ -21,7 +21,7 @@ pub fn build_set_github_access_token_modal(window: &gtk::ApplicationWindow) -> g
         .build();
     let settings = gio::Settings::new(APP_ID);
     let github_access_token = settings.get::<String>("github-access-token");
-    let entry = gtk::Entry::builder().text(&github_access_token).build();
+    let entry = gtk::Entry::builder().text(github_access_token).build();
     let button_row = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)
         .halign(gtk::Align::Center)
@@ -40,7 +40,7 @@ pub fn build_set_github_access_token_modal(window: &gtk::ApplicationWindow) -> g
         let settings = gio::Settings::new(APP_ID);
 
         settings
-            .set_string("github-access-token", &entry.text().trim())
+            .set_string("github-access-token", entry.text().trim())
             .expect("Should have been able to set github-access-token setting.");
         modal.close();
     }));

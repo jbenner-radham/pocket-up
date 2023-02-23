@@ -1,4 +1,4 @@
-use crate::config::{PocketCore, APP_ID, POCKET_CORES};
+use crate::config::{APP_ID, POCKET_CORES};
 use crate::downloader::{fetch_download, fetch_github_release};
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
@@ -92,7 +92,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         // let cores_to_download = POCKET_CORES
         //     .iter()
         //     .filter(|core| settings.get::<bool>(&core.settings_name()))
-        //     .collect::<Vec<&PocketCore>>()
+        //     .collect::<Vec<_>>()
         //     .len();
 
         for core in POCKET_CORES {
