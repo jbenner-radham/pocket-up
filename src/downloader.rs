@@ -98,7 +98,6 @@ pub fn unzip_to_pocket_dir(zip_path: &str) {
 }
 
 pub fn fetch_download(url: &str) {
-    println!("{url}");
     let client = build_http_client();
     let response = client
         .get(url)
