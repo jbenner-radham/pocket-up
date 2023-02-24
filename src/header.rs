@@ -1,5 +1,5 @@
 use crate::config::APP_NAME;
-use gtk::{self, gio};
+use gtk::{self, gio, traits::WidgetExt};
 
 pub fn build_header() -> gtk::Label {
     let margin = 8;
@@ -12,6 +12,7 @@ pub fn build_header() -> gtk::Label {
 
     // https://docs.gtk.org/Pango/pango_markup.html
     header.set_markup(r#"<big><b>openFPGA Cores</b></big>"#);
+    header.add_css_class("label--header");
 
     header
 }

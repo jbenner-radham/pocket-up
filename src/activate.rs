@@ -12,13 +12,19 @@ use gtk::prelude::*;
 use gtk::{self, gio};
 
 fn load_css() {
-    let display = gdk::Display::default().expect("Could not get default display.");
-    let priority = gtk::STYLE_PROVIDER_PRIORITY_APPLICATION;
-    let provider = gtk::CssProvider::new();
+    if let Some(settings) = gtk::Settings::default() {
+        let display = gdk::Display::default().expect("Could not get default display.");
+        let priority = gtk::STYLE_PROVIDER_PRIORITY_APPLICATION;
+        let provider = gtk::CssProvider::new();
 
-    provider.load_from_data(include_str!("../resources/style.css"));
+        if settings.is_gtk_application_prefer_dark_theme() {
+            provider.load_from_data(include_str!("../resources/styles/dark.css"));
+        } else {
+            provider.load_from_data(include_str!("../resources/styles/light.css"));
+        }
 
-    gtk::StyleContext::add_provider_for_display(&display, &provider, priority);
+        gtk::StyleContext::add_provider_for_display(&display, &provider, priority);
+    }
 }
 
 pub fn on_activate(app: &gtk::Application) {
@@ -45,6 +51,8 @@ pub fn on_activate(app: &gtk::Application) {
     let action_set_github_access_token = gio::SimpleAction::new("set-github-access-token", None);
     let action_help = gio::SimpleAction::new("help", None);
     let action_about = gio::SimpleAction::new("about", None);
+
+    load_css();
 
     action_set_github_access_token.connect_activate(clone!(@weak window => move |_, _| {
         build_set_github_access_token_modal(&window).present();
