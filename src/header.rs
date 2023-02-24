@@ -11,7 +11,7 @@ pub fn build_header() -> gtk::Label {
         .build();
 
     // https://docs.gtk.org/Pango/pango_markup.html
-    header.set_markup(r#"<span foreground="blue"><big><b>openFPGA Cores</b></big></span>"#);
+    header.set_markup(r#"<big><b>openFPGA Cores</b></big>"#);
 
     header
 }

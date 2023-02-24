@@ -24,7 +24,7 @@ pub struct PocketCore {
 impl PocketCore {
     pub fn description_markup(&self) -> String {
         format!(
-            r#"<b>{}</b> <span foreground="gray">by</span> <i>{}</i>"#,
+            r#"<b>{}</b> by <i>{}</i>"#,
             self.name, self.author
         )
     }
