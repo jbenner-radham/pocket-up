@@ -6,13 +6,25 @@ use crate::header::{build_header, build_header_bar};
 use crate::help_window::build_help_window;
 use crate::set_github_access_token_modal::build_set_github_access_token_modal;
 use crate::window_child::build_window_child;
+use gtk::gdk;
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
 
+fn load_css() {
+    let display = gdk::Display::default().expect("Could not get default display.");
+    let priority = gtk::STYLE_PROVIDER_PRIORITY_APPLICATION;
+    let provider = gtk::CssProvider::new();
+
+    provider.load_from_data(include_str!("../resources/style.css"));
+
+    gtk::StyleContext::add_provider_for_display(&display, &provider, priority);
+}
+
 pub fn on_activate(app: &gtk::Application) {
     // https://developer-old.gnome.org/gtk4/stable/GtkSettings.html
     if let Some(settings) = gtk::Settings::default() {
+        // Use this for testing dark mode.
         // settings.set_gtk_application_prefer_dark_theme(true);
 
         // Hack to work around the issue with `gtk::Entry` crashing on left or right keypress.
