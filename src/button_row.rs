@@ -170,7 +170,6 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                     settings
                         .set_boolean("is-form-enabled", true)
                         .expect("Could not set is-form-enabled setting.");
-                    println!("{}", dir.parse_name());
                 }
             }
         });
