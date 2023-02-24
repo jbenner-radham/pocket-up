@@ -30,7 +30,7 @@ Then to build:
 
 ```shell
 mkdir -p $HOME/.local/share/glib-2.0/schemas
-cp com.radioactivehamster.pocket_up.gschema.xml $HOME/.local/share/glib-2.0/schemas/
+cp resources/com.radioactivehamster.pocket_up.gschema.xml $HOME/.local/share/glib-2.0/schemas/
 glib-compile-schemas $HOME/.local/share/glib-2.0/schemas/
 cargo build --release
 ```
