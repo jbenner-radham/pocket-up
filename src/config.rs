@@ -5,6 +5,8 @@ pub const APP_ID: &str = "com.radioactivehamster.pocket_up";
 
 pub const APP_NAME: &str = "PocketUp";
 
+pub const COLUMN_WIDTH: usize = 80;
+
 pub struct PocketCore {
     // The name of the core as specified on https://openfpga-cores-inventory.github.io/analogue-pocket/
     pub name: &'static str,

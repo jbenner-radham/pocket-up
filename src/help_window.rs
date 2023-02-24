@@ -1,3 +1,4 @@
+use crate::config::COLUMN_WIDTH;
 use gtk::prelude::*;
 
 fn build_section_header_markup(header: &str) -> String {
@@ -7,7 +8,7 @@ fn build_section_header_markup(header: &str) -> String {
 fn build_section_text(sentences: Vec<&str>) -> String {
     let text = sentences.join(" ");
 
-    textwrap::wrap(&text, 80).join("\n")
+    textwrap::wrap(&text, COLUMN_WIDTH).join("\n")
 }
 
 pub fn build_help_window() -> gtk::Window {

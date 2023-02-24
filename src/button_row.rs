@@ -1,9 +1,98 @@
-use crate::config::{APP_ID, POCKET_CORES};
+use crate::config::{APP_ID, COLUMN_WIDTH, POCKET_CORES};
 use crate::downloader::{fetch_download, fetch_github_release};
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
 use std::path::Path;
+
+fn build_modal_child() -> gtk::Box {
+    let margin = 12;
+
+    gtk::Box::builder()
+        .orientation(gtk::Orientation::Vertical)
+        .margin_top(margin)
+        .margin_bottom(margin)
+        .margin_start(margin)
+        .margin_end(margin)
+        .spacing(margin)
+        .valign(gtk::Align::Center)
+        .halign(gtk::Align::Center)
+        .build()
+}
+
+fn build_error_modal(error: &anyhow::Error, window: &gtk::ApplicationWindow) -> gtk::Window {
+    let modal = gtk::Window::builder()
+        .title("Error")
+        .transient_for(window)
+        .modal(true)
+        .build();
+    let child = build_modal_child();
+    let text = textwrap::wrap(&error.to_string(), COLUMN_WIDTH).join("\n");
+    let label = gtk::Label::new(Some(&text));
+    let ok_button = gtk::Button::with_mnemonic("_OK");
+
+    ok_button.add_css_class("error-modal__button--ok");
+    ok_button.connect_clicked(clone!(@weak modal => move |_| modal.close()));
+
+    child.append(&label);
+    child.append(&ok_button);
+
+    modal.set_child(Some(&child));
+
+    modal
+}
+
+fn build_no_openfpga_cores_selected_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
+    let modal = gtk::Window::builder()
+        .title("No openFPGA Cores Selected")
+        .transient_for(window)
+        .modal(true)
+        .build();
+    let child = build_modal_child();
+    let text = textwrap::wrap(
+        "No openFPGA cores have been selected for download. Please select some and try again.",
+        COLUMN_WIDTH,
+    )
+    .join("\n");
+    let label = gtk::Label::new(Some(&text));
+    let ok_button = gtk::Button::with_mnemonic("_OK");
+
+    ok_button.add_css_class("error-modal__button--ok");
+    ok_button.connect_clicked(clone!(@weak modal => move |_| modal.close()));
+
+    child.append(&label);
+    child.append(&ok_button);
+
+    modal.set_child(Some(&child));
+
+    modal
+}
+
+fn build_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
+    let modal = gtk::Window::builder()
+        .title("Success")
+        .transient_for(window)
+        .modal(true)
+        .build();
+    let child = build_modal_child();
+    let text = textwrap::wrap(
+        "Successfully installed/updated your openFPGA core(s)! Have a fun! 🎉",
+        COLUMN_WIDTH,
+    )
+    .join("\n");
+    let label = gtk::Label::new(Some(&text));
+    let ok_button = gtk::Button::with_mnemonic("_OK");
+
+    ok_button.add_css_class("error-modal__button--ok");
+    ok_button.connect_clicked(clone!(@weak modal => move |_| modal.close()));
+
+    child.append(&label);
+    child.append(&ok_button);
+
+    modal.set_child(Some(&child));
+
+    modal
+}
 
 fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog {
     let title = Some("Select a Folder");
@@ -87,28 +176,45 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         });
     }));
 
-    update_button.connect_clicked(|_| {
+    update_button.connect_clicked(clone!(@weak window => move|_| {
         let settings = gio::Settings::new(APP_ID);
-        // let cores_to_download = POCKET_CORES
-        //     .iter()
-        //     .filter(|core| settings.get::<bool>(&core.settings_name()))
-        //     .collect::<Vec<_>>()
-        //     .len();
+        let cores_to_download = POCKET_CORES
+            .iter()
+            .filter(|core| settings.get::<bool>(&core.settings_name()))
+            .count();
 
-        for core in POCKET_CORES {
-            let should_download_core = settings.get::<bool>(&core.settings_name());
+        if cores_to_download == 0 {
+            build_no_openfpga_cores_selected_modal(&window).present();
+        } else {
+            for core in POCKET_CORES {
+                let should_download_core = settings.get::<bool>(&core.settings_name());
 
-            if !should_download_core {
-                continue;
+                if !should_download_core {
+                    continue;
+                }
+
+                if let Some(url) = core.download_url {
+                    match fetch_download(url) {
+                        Ok(_) => {}
+                        Err(error) => {
+                            build_error_modal(&error, &window).present();
+                            break;
+                        }
+                    }
+                } else {
+                    match fetch_github_release(core.repo) {
+                        Ok(_) => {}
+                        Err(error) => {
+                            build_error_modal(&error, &window).present();
+                            break;
+                        }
+                    }
+                }
             }
 
-            if let Some(url) = core.download_url {
-                fetch_download(url);
-            } else {
-                fetch_github_release(core.repo);
-            }
+            build_success_modal(&window).present();
         }
-    });
+    }));
 
     row.append(&directory_button);
     row.append(&update_button);

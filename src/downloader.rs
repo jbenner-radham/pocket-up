@@ -1,4 +1,5 @@
 use crate::config::APP_ID;
+use anyhow::anyhow;
 use gtk::gio;
 use gtk::prelude::*;
 use reqwest::header::{self, HeaderMap, HeaderValue};
@@ -57,55 +58,79 @@ fn get_owner_and_repo_from_github_url(url: &str) -> [String; 2] {
     [owner, repo]
 }
 
-pub fn unzip_to_pocket_dir(zip_path: &str) {
+pub fn unzip_to_pocket_dir(zip_path: &str) -> anyhow::Result<()> {
     let settings = gio::Settings::new(APP_ID);
     let base_dir = settings.get::<String>("pocket-base-dir");
     let base_path = Path::new(&base_dir);
     let file = File::open(zip_path).unwrap();
     let mut archive = ZipArchive::new(file).unwrap();
 
-    for i in 0..archive.len() {
-        let mut file = archive.by_index(i).unwrap();
+    for index in 0..archive.len() {
+        let mut file = archive.by_index(index).unwrap();
         let out_path = match file.enclosed_name() {
-            Some(path) => base_path.join(path), //.to_owned(),
+            Some(path) => base_path.join(path),
             None => continue,
         };
 
-        // if (*file.name()).ends_with('/') {
         if file.name().ends_with('/') {
-            println!(r#"__File {} extracted to "{}""#, i, out_path.display());
-
-            fs::create_dir_all(&out_path).unwrap();
+            match fs::create_dir_all(&out_path) {
+                Ok(_) => {}
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not create directory path {}: {error}",
+                        out_path.display()
+                    ))
+                }
+            };
         } else {
-            println!(
-                r#"File {} extracted to "{}" ({} bytes)"#,
-                i,
-                out_path.display(),
-                file.size()
-            );
-
             if let Some(parent) = out_path.parent() {
                 if !parent.exists() {
-                    fs::create_dir_all(parent).unwrap();
+                    match fs::create_dir_all(parent) {
+                        Ok(_) => {}
+                        Err(error) => {
+                            return Err(anyhow!(
+                                "Could not create directory path {}: {error}",
+                                parent.file_name().unwrap().to_str().unwrap()
+                            ))
+                        }
+                    };
                 }
             }
 
-            let mut out_file = File::create(&out_path).unwrap();
+            let mut out_file = match File::create(&out_path) {
+                Ok(out_file) => out_file,
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not create file {}: {error}",
+                        out_path.file_name().unwrap().to_str().unwrap()
+                    ))
+                }
+            };
 
-            io::copy(&mut file, &mut out_file).unwrap();
+            match io::copy(&mut file, &mut out_file) {
+                Ok(_) => {}
+                Err(error) => return Err(anyhow!("Could not copy file {}: {error}", file.name())),
+            };
         }
     }
+
+    Ok(())
 }
 
-pub fn fetch_download(url: &str) {
+pub fn fetch_download(url: &str) -> anyhow::Result<()> {
     let client = build_http_client();
-    let response = client
-        .get(url)
-        .send()
-        .expect("Should have been able to fetch the file");
-    let bytes = response
-        .bytes()
-        .expect("Should have been able to read the bytes of the file");
+    let response = match client.get(url).send() {
+        Ok(response) => response,
+        Err(error) => return Err(anyhow!("An error occurred while downloading: {error}")),
+    };
+    let bytes = match response.bytes() {
+        Ok(bytes) => bytes,
+        Err(error) => {
+            return Err(anyhow!(
+                "An error occurred when reading the bytes of the download: {error}"
+            ))
+        }
+    };
     let filename = get_filename_from_url(url);
     let temp_dir = env::temp_dir().join("pocket-up");
     let temp_dirname = temp_dir.to_str().unwrap();
@@ -113,18 +138,18 @@ pub fn fetch_download(url: &str) {
 
     match fs::create_dir_all(temp_dirname) {
         Ok(_) => {}
-        Err(error) => eprintln!("Could not create directory path! {error}"),
+        Err(error) => return Err(anyhow!("Could not create directory path: {error}")),
     }
 
     match fs::write(&temp_filepath, bytes) {
-        Ok(_) => println!("Successfully downloaded {temp_filepath}"),
-        Err(error) => eprintln!("Could not write file! {error}"),
+        Ok(_) => {}
+        Err(error) => return Err(anyhow!("Could not write file: {error}")),
     };
 
-    unzip_to_pocket_dir(&temp_filepath);
+    unzip_to_pocket_dir(&temp_filepath)
 }
 
-pub fn fetch_github_release(repo_url: &str) {
+pub fn fetch_github_release(repo_url: &str) -> anyhow::Result<()> {
     let client = build_github_api_client();
     let [owner, repo] = get_owner_and_repo_from_github_url(repo_url);
     let api_url = format!("https://api.github.com/repos/{owner}/{repo}/releases/latest");
@@ -136,38 +161,85 @@ pub fn fetch_github_release(repo_url: &str) {
     match response.status().as_u16() {
         200 => {
             // We found the latest release so now we download it.
-            let text = response
-                .text()
-                .expect("Should have been able to read the text of the document");
-            println!("{text}");
-            let json = serde_json::from_str::<serde_json::Value>(&text)
-                .expect("Should have been able to parse the JSON document");
-            let download_url = json["assets"][0]["browser_download_url"].as_str().unwrap();
+            let text = match response.text() {
+                Ok(text) => text,
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not read the text of the GitHub API response: {error}"
+                    ))
+                }
+            };
+            let json = match serde_json::from_str::<serde_json::Value>(&text) {
+                Ok(json) => json,
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not parse the GitHub API response as JSON: {error}"
+                    ))
+                }
+            };
+            let download_url = match json["assets"][0]["browser_download_url"].as_str() {
+                Some(download_url) => download_url,
+                None => {
+                    return Err(anyhow!(
+                        "Could not find the download URL in the GitHub API response."
+                    ))
+                }
+            };
 
-            fetch_download(download_url);
+            fetch_download(download_url)
+        }
+        401 => {
+            // Got "Unauthorized" from the server.
+            return Err(anyhow!(
+                r#"The server returned "Unauthorized". If you have a GitHub access token set it may be incorrect or expired."#
+            ));
         }
         404 => {
             // No latest release found so it's probably a pre-release so we query the standard
             // releases API and grab the first result. Might have to adjust this later since
             // I'm not sure if the first result is always going to be the newest.
             let api_url = format!("https://api.github.com/repos/{owner}/{repo}/releases");
-            let response = client
-                .get(api_url)
-                .send()
-                .expect("Should have been able to fetch the JSON document");
-            let text = response
-                .text()
-                .expect("Should have been able to read the text of the document");
-            println!("{text}");
-            let json = serde_json::from_str::<serde_json::Value>(&text)
-                .expect("Should have been able to parse the JSON document");
-            let download_url = json[0]["assets"][0]["browser_download_url"]
-                .as_str()
-                .unwrap();
+            let response = match client.get(api_url).send() {
+                Ok(response) => response,
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not fetch the JSON document from the GitHub API: {error}"
+                    ))
+                }
+            };
+            let text = match response.text() {
+                Ok(text) => text,
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not read the text of the GitHub API response: {error}"
+                    ))
+                }
+            };
+            let json = match serde_json::from_str::<serde_json::Value>(&text) {
+                Ok(json) => json,
+                Err(error) => {
+                    return Err(anyhow!(
+                        "Could not parse the GitHub API response as JSON: {error}"
+                    ))
+                }
+            };
+            let download_url = match json[0]["assets"][0]["browser_download_url"].as_str() {
+                Some(download_url) => download_url,
+                None => {
+                    return Err(anyhow!(
+                        "Could not find the download URL in the GitHub API response."
+                    ))
+                }
+            };
 
-            fetch_download(download_url);
+            fetch_download(download_url)
         }
-        _ => eprintln!("Got unexpected HTTP response status: {}", response.status()),
+        _ => {
+            return Err(anyhow!(
+                "Got unexpected HTTP response status from the GitHub API: {}",
+                response.status()
+            ))
+        }
     }
 }
 
