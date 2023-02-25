@@ -68,7 +68,7 @@ pub fn build_help_window() -> gtk::Window {
         "The step is optional.",
         "But if you ever have issues downloading openFPGA cores it's probably because you need to set a GitHub access token for the app.",
         "Please reference the GitHub Docs[1] website for instructions on how to do so.",
-        r#"Once you've done this click the hamburger menu with the tooltip "Primary Menu" in the right hand side of the app's titlebar."#,
+        r#"Once you've done this click the hamburger menu with the tooltip "Main Menu" in the right hand side of the app's titlebar."#,
         r#"From there simply click the "Set GitHub Access Token" menu option and enter your access token in the entry field and click "OK"."#
     ]);
     let setting_a_github_access_token_section =
