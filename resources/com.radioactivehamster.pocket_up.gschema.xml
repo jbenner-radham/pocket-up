@@ -137,5 +137,21 @@
             <default>false</default>
             <summary>Should download the PC Engine for Analogue Pocket core by agg23?</summary>
         </key>
+        <key name="download-core-pdp-1-by-spacemen3" type="b">
+            <default>false</default>
+            <summary>Should download the PDP-1 core by spacemen3?</summary>
+        </key>
+        <key name="download-core-performan-by-antongale" type="b">
+            <default>false</default>
+            <summary>Should download the Performan core by antongale?</summary>
+        </key>
+        <key name="download-core-pokemon-mini-for-analogue-pocket-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the Pokemon Mini for Analogue Pocket core by agg23?</summary>
+        </key>
+        <key name="download-core-pooyan-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Pooyan core by opengateware?</summary>
+        </key>
     </schema>
 </schemalist>

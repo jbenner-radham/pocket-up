@@ -34,7 +34,7 @@ impl PocketCore {
     }
 }
 
-pub const POCKET_CORES: [PocketCore; 31] = [
+pub const POCKET_CORES: [PocketCore; 35] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -91,8 +91,6 @@ pub const POCKET_CORES: [PocketCore; 31] = [
         repo: "https://github.com/opengateware/arcade-congo",
         download_url: None,
     },
-    // TODO: jotego's releases are all under one singular repo. Need to
-    // figure out how to handle that.
     PocketCore {
         name: "Contra",
         author: "jotego",
@@ -224,6 +222,30 @@ pub const POCKET_CORES: [PocketCore; 31] = [
         name: "PC Engine for Analogue Pocket",
         author: "agg23",
         repo: "https://github.com/agg23/openfpga-pcengine",
+        download_url: None,
+    },
+    PocketCore {
+        name: "PDP-1",
+        author: "spacemen3",
+        repo: "https://github.com/spacemen3/PDP-1",
+        download_url: None,
+    },
+    PocketCore {
+        name: "Performan",
+        author: "antongale",
+        repo: "https://github.com/antongale/arcade-performan",
+        download_url: None,
+    },
+    PocketCore {
+        name: "Pokemon Mini for Analogue Pocket",
+        author: "agg23",
+        repo: "https://github.com/agg23/openfpga-pokemonmini",
+        download_url: None,
+    },
+    PocketCore {
+        name: "Pooyan",
+        author: "opengateware",
+        repo: "https://github.com/opengateware/arcade-pooyan",
         download_url: None,
     },
 ];
