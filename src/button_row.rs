@@ -185,7 +185,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         if cores_to_download == 0 {
             build_no_openfpga_cores_selected_modal(&window).present();
         } else {
-            for core in POCKET_CORES {
+            'outer: for core in POCKET_CORES {
                 let should_download_core = settings.get::<bool>(&core.settings_name());
 
                 if !should_download_core {
@@ -197,7 +197,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                         Ok(_) => {}
                         Err(error) => {
                             build_error_modal(&error, &window).present();
-                            continue;
+                            break;
                         }
                     };
                 } else {
@@ -205,16 +205,17 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                         Ok(_) => {}
                         Err(error) => {
                             build_error_modal(&error, &window).present();
-                            continue;
+                            break;
                         }
                     };
                 }
 
-                for bios in core.bios_files {
+                '_inner: for bios in core.bios_files {
                     match fetch_bios(bios) {
                         Ok(_) => {}
                         Err(error) => {
                             build_error_modal(&error, &window).present();
+                            break 'outer;
                         }
                     };
                 }
