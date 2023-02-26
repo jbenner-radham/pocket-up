@@ -199,7 +199,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                             build_error_modal(&error, &window).present();
                             continue;
                         }
-                    }
+                    };
                 } else {
                     match fetch_github_release(core.repo) {
                         Ok(_) => {}
@@ -207,7 +207,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                             build_error_modal(&error, &window).present();
                             continue;
                         }
-                    }
+                    };
                 }
 
                 for bios in core.bios_files {
