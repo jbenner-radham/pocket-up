@@ -76,7 +76,7 @@ fn build_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
         .build();
     let child = build_modal_child();
     let text = textwrap::wrap(
-        "Successfully installed/updated your openFPGA core(s)! Have a fun! 🎉",
+        "Successfully updated your openFPGA core(s)! Have a fun! 🎉",
         COLUMN_WIDTH,
     )
     .join("\n");
