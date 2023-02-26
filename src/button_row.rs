@@ -181,10 +181,12 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
             .iter()
             .filter(|core| settings.get::<bool>(&core.settings_name()))
             .count();
+        let mut number_of_errors = 0;
 
         if cores_to_download == 0 {
             build_no_openfpga_cores_selected_modal(&window).present();
         } else {
+            // TODO: Handle errors graciously so one error doesn't stop all remaining downloads!
             'outer: for core in POCKET_CORES {
                 let should_download_core = settings.get::<bool>(&core.settings_name());
 
@@ -197,6 +199,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                         Ok(_) => {}
                         Err(error) => {
                             build_error_modal(&error, &window).present();
+                            number_of_errors += 1;
                             break;
                         }
                     };
@@ -205,6 +208,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                         Ok(_) => {}
                         Err(error) => {
                             build_error_modal(&error, &window).present();
+                            number_of_errors += 1;
                             break;
                         }
                     };
@@ -221,7 +225,9 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                 }
             }
 
-            build_success_modal(&window).present();
+            if number_of_errors == 0 {
+                build_success_modal(&window).present();
+            }
         }
     }));
 
