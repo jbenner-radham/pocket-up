@@ -1,4 +1,4 @@
-use crate::config::APP_ID;
+use crate::config::{PocketCoreBios, APP_ID};
 use anyhow::anyhow;
 use gtk::gio;
 use gtk::prelude::*;
@@ -56,6 +56,106 @@ fn get_owner_and_repo_from_github_url(url: &str) -> [String; 2] {
     let owner = collection.pop().unwrap().to_string();
 
     [owner, repo]
+}
+
+pub fn unzip_bios(bios: &PocketCoreBios, zip_path: &str) -> anyhow::Result<()> {
+    let settings = gio::Settings::new(APP_ID);
+    let base_dir = settings.get::<String>("pocket-base-dir");
+    let base_path = Path::new(&base_dir);
+    let zip_file = File::open(zip_path).unwrap();
+    let mut archive = ZipArchive::new(zip_file).unwrap();
+
+    if let Some(path_in_zip) = bios.path_in_zip {
+        let mut file = archive.by_name(path_in_zip).unwrap();
+        let bios_path = Path::new(bios.path);
+        let out_path = base_path.join(bios_path);
+
+        if let Some(parent) = out_path.parent() {
+            if !parent.exists() {
+                match fs::create_dir_all(parent) {
+                    Ok(_) => {}
+                    Err(error) => {
+                        return Err(anyhow!(
+                            "Could not create directory path {}: {error}",
+                            parent.file_name().unwrap().to_str().unwrap()
+                        ))
+                    }
+                };
+            }
+        }
+
+        let mut out_file = match File::create(&out_path) {
+            Ok(out_file) => out_file,
+            Err(error) => {
+                return Err(anyhow!(
+                    "Could not create file {}: {error}",
+                    out_path.file_name().unwrap().to_str().unwrap()
+                ))
+            }
+        };
+
+        match io::copy(&mut file, &mut out_file) {
+            Ok(_) => {}
+            Err(error) => return Err(anyhow!("Could not copy file {}: {error}", file.name())),
+        };
+    }
+
+    Ok(())
+}
+
+pub fn fetch_bios(bios: &PocketCoreBios) -> anyhow::Result<()> {
+    let client = build_http_client();
+    let response = match client.get(bios.url).send() {
+        Ok(response) => response,
+        Err(error) => return Err(anyhow!("An error occurred while downloading: {error}")),
+    };
+    let bytes = match response.bytes() {
+        Ok(bytes) => bytes,
+        Err(error) => {
+            return Err(anyhow!(
+                "An error occurred when reading the bytes of the download: {error}"
+            ))
+        }
+    };
+    let filename = get_filename_from_url(bios.url);
+
+    if filename.ends_with(".zip") {
+        let temp_dir = env::temp_dir().join("pocket-up");
+        let temp_dirname = temp_dir.to_str().unwrap();
+        let temp_filepath = format!("{temp_dirname}/{filename}");
+
+        match fs::create_dir_all(temp_dirname) {
+            Ok(_) => {}
+            Err(error) => return Err(anyhow!("Could not create directory path: {error}")),
+        };
+
+        match fs::write(&temp_filepath, bytes) {
+            Ok(_) => {}
+            Err(error) => return Err(anyhow!("Could not write file: {error}")),
+        };
+
+        unzip_bios(bios, &temp_filepath)
+    } else {
+        let settings = gio::Settings::new(APP_ID);
+        let base_dir = settings.get::<String>("pocket-base-dir");
+        let base_path = Path::new(&base_dir);
+        let bios_path = Path::new(bios.path);
+        let filepath = base_path.join(bios_path);
+
+        if let Some(parent) = filepath.parent() {
+            match fs::create_dir_all(parent) {
+                Ok(_) => {}
+                Err(error) => return Err(anyhow!("Could not create directory path: {error}")),
+            };
+
+            match fs::write(filepath, bytes) {
+                Ok(_) => {}
+                Err(error) => return Err(anyhow!("Could not write file: {error}")),
+            };
+        }
+
+        Ok(())
+    }
 }
 
 pub fn unzip_to_pocket_dir(zip_path: &str) -> anyhow::Result<()> {
@@ -139,7 +239,7 @@ pub fn fetch_download(url: &str) -> anyhow::Result<()> {
     match fs::create_dir_all(temp_dirname) {
         Ok(_) => {}
         Err(error) => return Err(anyhow!("Could not create directory path: {error}")),
-    }
+    };
 
     match fs::write(&temp_filepath, bytes) {
         Ok(_) => {}
