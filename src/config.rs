@@ -45,7 +45,7 @@ pub struct PocketCoreBios {
     pub path_in_zip: Option<&'static str>,
 }
 
-pub const POCKET_CORES: [PocketCore; 35] = [
+pub const POCKET_CORES: [PocketCore; 36] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -251,7 +251,23 @@ pub const POCKET_CORES: [PocketCore; 35] = [
         name: "Neo Geo (Overdrive)",
         author: "Mazamars312",
         repo: "https://github.com/Mazamars312/Analogue_Pocket_Neogeo_Overdrive",
-        bios_files: &[],
+        bios_files: &[
+            &PocketCoreBios {
+                path: "Assets/ng/common/uni-bios_4_0.rom",
+                url: "http://unibios.free.fr/download/uni-bios-40.zip",
+                path_in_zip: Some("uni-bios.rom"),
+            },
+            &PocketCoreBios {
+                path: "Assets/ng/common/000-lo.lo",
+                url: "https://archive.org/download/mister-console-bios-pack_theypsilon/NeoGeo.zip/000-lo.lo",
+                path_in_zip: None,
+            },
+            &PocketCoreBios {
+                path: "Assets/ng/common/sfix.sfix",
+                url: "https://archive.org/download/mister-console-bios-pack_theypsilon/NeoGeo.zip/sfix.sfix",
+                path_in_zip: None,
+            },
+        ],
         download_url: None,
     },
     PocketCore {
@@ -307,6 +323,13 @@ pub const POCKET_CORES: [PocketCore; 35] = [
         name: "Pooyan",
         author: "opengateware",
         repo: "https://github.com/opengateware/arcade-pooyan",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Q*Bert",
+        author: "ericlewis",
+        repo: "https://github.com/ericlewis/openfpga-qbert",
         bios_files: &[],
         download_url: None,
     },

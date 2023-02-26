@@ -153,5 +153,9 @@
             <default>false</default>
             <summary>Should download the Pooyan core by opengateware?</summary>
         </key>
+        <key name="download-core-q-bert-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Q*Bert core by ericlewis?</summary>
+        </key>
     </schema>
 </schemalist>
