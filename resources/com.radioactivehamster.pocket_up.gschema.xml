@@ -157,5 +157,73 @@
             <default>false</default>
             <summary>Should download the Q*Bert core by ericlewis?</summary>
         </key>
+        <key name="download-core-radar-scope-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Radar Scope core by ericlewis?</summary>
+        </key>
+        <key name="download-core-road-fighter-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Road Fighter core by jotego?</summary>
+        </key>
+        <key name="download-core-roc-n-rope-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Roc'n Rope core by jotego?</summary>
+        </key>
+        <key name="download-core-slap-fight-by-antongale" type="b">
+            <default>false</default>
+            <summary>Should download the Slap Fight core by antongale?</summary>
+        </key>
+        <key name="download-core-snes-for-analogue-pocket-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the SNES for Analogue Pocket core by agg23?</summary>
+        </key>
+        <key name="download-core-snow-bros-2-by-psomashekar" type="b">
+            <default>false</default>
+            <summary>Should download the Snow Bros. 2 core by psomashekar?</summary>
+        </key>
+        <key name="download-core-space-race-for-analogue-pocket-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Space Race for Analogue Pocket core by ericlewis?</summary>
+        </key>
+        <key name="download-core-spiritualized-adventure-vision-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Adventure Vision core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-arcadia-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Arcadia core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-atari-2600-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Atari 2600 core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-atari-7800-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Atari 7800 core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-channel-f-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Channel F core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-coleco-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Coleco core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-creativision-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Creativision core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-gamate-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Gamate core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-game-king-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Game King core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-gb-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized GB core by spiritualized1997?</summary>
+        </key>
     </schema>
 </schemalist>
