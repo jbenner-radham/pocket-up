@@ -450,21 +450,39 @@ pub const POCKET_CORES: [PocketCore; 79] = [
         name: "Spiritualized GB",
         author: "spiritualized1997",
         repo: "https://github.com/spiritualized1997/openFPGA-GB-GBC",
-        bios_files: &[],
+        bios_files: &[
+            &PocketCoreBios {
+                path: "Assets/gb/common/dmg_bios.bin",
+                url: "https://archive.org/download/mister-console-bios-pack_theypsilon/Gameboy.zip/GB_boot_ROM.gb",
+                path_in_zip: None,
+            },
+        ],
         download_url: Some("https://github.com/spiritualized1997/openFPGA-GB-GBC/releases/download/v1.3.0/Spiritualized_GB_1.3.0_2022_08_25.zip"),
     },
     PocketCore {
         name: "Spiritualized GBA",
         author: "spiritualized1997",
         repo: "https://github.com/spiritualized1997/openFPGA-GBA",
-        bios_files: &[],
+        bios_files: &[
+            &PocketCoreBios {
+                path: "Assets/gba/common/gba_bios.bin",
+                url: "https://archive.org/download/mister-console-bios-pack_theypsilon/GBA.zip/gba_bios.bin",
+                path_in_zip: None,
+            },
+        ],
         download_url: None,
     },
     PocketCore {
         name: "Spiritualized GBC",
         author: "spiritualized1997",
         repo: "https://github.com/spiritualized1997/openFPGA-GB-GBC",
-        bios_files: &[],
+        bios_files: &[
+            &PocketCoreBios {
+                path: "Assets/gbc/common/gbc_bios.bin",
+                url: "https://archive.org/download/mister-console-bios-pack_theypsilon/Gameboy.zip/GBC_boot_ROM.gb",
+                path_in_zip: None,
+            },
+        ],
         download_url: Some("https://github.com/spiritualized1997/openFPGA-GB-GBC/releases/download/v1.3.0/Spiritualized_GBC_1.3.0_2022_08_25.zip"),
     },
     PocketCore {
