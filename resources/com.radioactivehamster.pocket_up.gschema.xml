@@ -233,5 +233,81 @@
             <default>false</default>
             <summary>Should download the Spiritualized GBC core by spiritualized1997?</summary>
         </key>
+        <key name="download-core-spiritualized-genesis-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Genesis core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-intellivision-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Intellivision core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-megaduck-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Megaduck core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-nes-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized NES core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-odyssey-2-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Odyssey 2 core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-sega-game-gear-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Sega Game Gear core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-sega-master-system-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Sega Master System core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-sega-sg-1000-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Sega SG-1000 core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-studio-2-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Studio 2 core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-super-gameboy-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Super Gameboy core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-supervision-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized Supervision core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-video-brain-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized VideoBrain core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-street-fighter-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Street Fighter core by jotego?</summary>
+        </key>
+        <key name="download-core-super-basketball-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Super Basketball core by jotego?</summary>
+        </key>
+        <key name="download-core-super-breakout-for-analogue-pocket-by-ericlewis" type="b">
+            <default>false</default>
+            <summary>Should download the Super Breakout for Analogue Pocket core by ericlewis?</summary>
+        </key>
+        <key name="download-core-supervision-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Supervision core by opengateware?</summary>
+        </key>
+        <key name="download-core-tecmo-by-nullobject" type="b">
+            <default>false</default>
+            <summary>Should download the Tecmo core by nullobject?</summary>
+        </key>
+        <key name="download-core-track-amp-field-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Track &amp; Field core by jotego?</summary>
+        </key>
+        <key name="download-core-trojan-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Trojan core by jotego?</summary>
+        </key>
     </schema>
 </schemalist>

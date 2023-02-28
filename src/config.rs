@@ -45,7 +45,7 @@ pub struct PocketCoreBios {
     pub path_in_zip: Option<&'static str>,
 }
 
-pub const POCKET_CORES: [PocketCore; 55] = [
+pub const POCKET_CORES: [PocketCore; 74] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -132,7 +132,7 @@ pub const POCKET_CORES: [PocketCore; 55] = [
         bios_files: &[],
         download_url: None,
     },
-    // TODO: This is a pre-release so it doesn't show up using the GitHub latest release API. Work around this!
+    // TODO: This is a pre-release so it doesn't show up using the GitHub latest release API. Look into this more later!
     PocketCore {
         name: "Donkey Kong",
         author: "ericlewis",
@@ -445,13 +445,13 @@ pub const POCKET_CORES: [PocketCore; 55] = [
         bios_files: &[],
         download_url: None,
     },
-    // TODO: This repo shares a release with the GBC core. Figure out how to handle this!
+    // TODO: This repo shares a release with the GBC core. Figure out how to handle this properly!
     PocketCore {
         name: "Spiritualized GB",
         author: "spiritualized1997",
         repo: "https://github.com/spiritualized1997/openFPGA-GB-GBC",
         bios_files: &[],
-        download_url: None,
+        download_url: Some("https://github.com/spiritualized1997/openFPGA-GB-GBC/releases/download/v1.3.0/Spiritualized_GB_1.3.0_2022_08_25.zip"),
     },
     PocketCore {
         name: "Spiritualized GBA",
@@ -465,6 +465,139 @@ pub const POCKET_CORES: [PocketCore; 55] = [
         author: "spiritualized1997",
         repo: "https://github.com/spiritualized1997/openFPGA-GB-GBC",
         bios_files: &[],
+        download_url: Some("https://github.com/spiritualized1997/openFPGA-GB-GBC/releases/download/v1.3.0/Spiritualized_GBC_1.3.0_2022_08_25.zip"),
+    },
+    PocketCore {
+        name: "Spiritualized Genesis",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Genesis",
+        bios_files: &[],
         download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Intellivision",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Intellivision",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Megaduck",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Megaduck",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized NES",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-NES",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Odyssey 2",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Odyssey-2",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Sega Game Gear",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-GG",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Sega Master System",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-SMS",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Sega SG-1000",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-SG1000",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Studio 2",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Studio-2",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Super Gameboy",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Super-GB",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized Supervision",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-Supervision",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized VideoBrain",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-VideoBrain",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Street Fighter",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtsf.zip"),
+    },
+    PocketCore {
+        name: "Super Basketball",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtsbaskt.zip"),
+    },
+    PocketCore {
+        name: "Super Breakout for Analogue Pocket",
+        author: "ericlewis",
+        repo: "https://github.com/ericlewis/openfpga-superbreakout",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Supervision",
+        author: "opengateware",
+        repo: "https://github.com/opengateware/console-supervision",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Tecmo",
+        author: "nullobject",
+        repo: "https://github.com/nullobject/openfpga-tecmo",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Track &amp; Field",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jttrack.zip"),
+    },
+    PocketCore {
+        name: "Trojan",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jttrojan.zip"),
     },
 ];
