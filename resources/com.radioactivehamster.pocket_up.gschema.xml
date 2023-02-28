@@ -309,5 +309,25 @@
             <default>false</default>
             <summary>Should download the Trojan core by jotego?</summary>
         </key>
+        <key name="download-core-vigilante-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Vigilante core by jotego?</summary>
+        </key>
+        <key name="download-core-vulgus-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Vulgus core by jotego?</summary>
+        </key>
+        <key name="download-core-wonder-swan-color-for-analogue-pocket-by-agg23" type="b">
+            <default>false</default>
+            <summary>Should download the WonderSwan Color for Analogue Pocket core by agg23?</summary>
+        </key>
+        <key name="download-core-xevious-by-opengateware" type="b">
+            <default>false</default>
+            <summary>Should download the Xevious core by opengateware?</summary>
+        </key>
+        <key name="download-core-yie-ar-kung-fu-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Yie Ar Kung-Fu core by jotego?</summary>
+        </key>
     </schema>
 </schemalist>

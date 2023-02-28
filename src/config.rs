@@ -45,7 +45,7 @@ pub struct PocketCoreBios {
     pub path_in_zip: Option<&'static str>,
 }
 
-pub const POCKET_CORES: [PocketCore; 74] = [
+pub const POCKET_CORES: [PocketCore; 79] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -586,6 +586,7 @@ pub const POCKET_CORES: [PocketCore; 74] = [
         bios_files: &[],
         download_url: None,
     },
+    // The ampersand in Track & Field needs to be escaped or it won't render in the label.
     PocketCore {
         name: "Track &amp; Field",
         author: "jotego",
@@ -599,5 +600,40 @@ pub const POCKET_CORES: [PocketCore; 74] = [
         repo: "https://github.com/jotego/jtbin",
         bios_files: &[],
         download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jttrojan.zip"),
+    },
+    PocketCore {
+        name: "Vigilante",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtvigil.zip"),
+    },
+    PocketCore {
+        name: "Vulgus",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtvulgus.zip"),
+    },
+    PocketCore {
+        name: "WonderSwan Color for Analogue Pocket",
+        author: "agg23",
+        repo: "https://github.com/agg23/openfpga-wonderswan",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Xevious",
+        author: "opengateware",
+        repo: "https://github.com/opengateware/arcade-xevious",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Yie Ar Kung-Fu",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtyiear.zip"),
     },
 ];
