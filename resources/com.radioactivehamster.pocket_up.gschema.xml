@@ -225,5 +225,13 @@
             <default>false</default>
             <summary>Should download the Spiritualized GB core by spiritualized1997?</summary>
         </key>
+        <key name="download-core-spiritualized-gba-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized GBA core by spiritualized1997?</summary>
+        </key>
+        <key name="download-core-spiritualized-gbc-by-spiritualized1997" type="b">
+            <default>false</default>
+            <summary>Should download the Spiritualized GBC core by spiritualized1997?</summary>
+        </key>
     </schema>
 </schemalist>

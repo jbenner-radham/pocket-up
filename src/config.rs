@@ -45,7 +45,7 @@ pub struct PocketCoreBios {
     pub path_in_zip: Option<&'static str>,
 }
 
-pub const POCKET_CORES: [PocketCore; 53] = [
+pub const POCKET_CORES: [PocketCore; 55] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -445,8 +445,23 @@ pub const POCKET_CORES: [PocketCore; 53] = [
         bios_files: &[],
         download_url: None,
     },
+    // TODO: This repo shares a release with the GBC core. Figure out how to handle this!
     PocketCore {
         name: "Spiritualized GB",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-GB-GBC",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized GBA",
+        author: "spiritualized1997",
+        repo: "https://github.com/spiritualized1997/openFPGA-GBA",
+        bios_files: &[],
+        download_url: None,
+    },
+    PocketCore {
+        name: "Spiritualized GBC",
         author: "spiritualized1997",
         repo: "https://github.com/spiritualized1997/openFPGA-GB-GBC",
         bios_files: &[],
