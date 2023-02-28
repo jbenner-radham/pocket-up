@@ -4,6 +4,8 @@ use std::path::Path;
 use std::process::Command;
 
 fn main() {
+    println!("cargo:rerun-if-changed=resources/com.radioactivehamster.pocket_up.gschema.xml");
+
     let home = match env::var("HOME") {
         Ok(home) => home,
         Err(error) => return eprintln!("Could not read $HOME environment variable: {error}"),
