@@ -73,6 +73,10 @@
             <default>false</default>
             <summary>Should download the Double Dragon II core by jotego?</summary>
         </key>
+        <key name="download-core-exed-exes-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Exed Exes core by jotego?</summary>
+        </key>
         <key name="download-core-galaga-by-opengateware" type="b">
             <default>false</default>
             <summary>Should download the Galaga core by opengateware?</summary>
@@ -88,6 +92,14 @@
         <key name="download-core-green-beret-by-opengateware" type="b">
             <default>false</default>
             <summary>Should download the Green Beret core by opengateware?</summary>
+        </key>
+        <key name="download-core-gun-smoke-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Gun Smoke core by jotego?</summary>
+        </key>
+        <key name="download-core-karnov-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Karnov core by jotego?</summary>
         </key>
         <key name="download-core-kicker-by-jotego" type="b">
             <default>false</default>
@@ -168,6 +180,14 @@
         <key name="download-core-roc-n-rope-by-jotego" type="b">
             <default>false</default>
             <summary>Should download the Roc'n Rope core by jotego?</summary>
+        </key>
+        <key name="download-core-section-z-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Section Z core by jotego?</summary>
+        </key>
+        <key name="download-core-side-arms-by-jotego" type="b">
+            <default>false</default>
+            <summary>Should download the Side Arms core by jotego?</summary>
         </key>
         <key name="download-core-slap-fight-by-antongale" type="b">
             <default>false</default>

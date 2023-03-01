@@ -45,7 +45,7 @@ pub struct PocketCoreBios {
     pub path_in_zip: Option<&'static str>,
 }
 
-pub const POCKET_CORES: [PocketCore; 79] = [
+pub const POCKET_CORES: [PocketCore; 84] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -155,6 +155,13 @@ pub const POCKET_CORES: [PocketCore; 79] = [
         download_url: Some("https://github.com/jotego/jtbin/raw/master/pocket/zips/jotego.jtdd2.zip"),
     },
     PocketCore {
+        name: "Exed Exes",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtexed.zip"),
+    },
+    PocketCore {
         name: "Galaga",
         author: "opengateware",
         repo: "https://github.com/opengateware/arcade-galaga",
@@ -181,6 +188,20 @@ pub const POCKET_CORES: [PocketCore; 79] = [
         repo: "https://github.com/opengateware/arcade-gberet",
         bios_files: &[],
         download_url: None,
+    },
+    PocketCore {
+        name: "Gun Smoke",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtgunsmk.zip"),
+    },
+    PocketCore {
+        name: "Karnov",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtkarnov.zip"),
     },
     PocketCore {
         name: "Kicker",
@@ -353,6 +374,20 @@ pub const POCKET_CORES: [PocketCore; 79] = [
         repo: "https://github.com/jotego/jtbin",
         bios_files: &[],
         download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtroc.zip"),
+    },
+    PocketCore {
+        name: "Section Z",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtsectnz.zip"),
+    },
+    PocketCore {
+        name: "Side Arms",
+        author: "jotego",
+        repo: "https://github.com/jotego/jtbin",
+        bios_files: &[],
+        download_url: Some("https://raw.githubusercontent.com/jotego/jtbin/master/pocket/zips/jotego.jtsarms.zip"),
     },
     PocketCore {
         name: "Slap Fight",
