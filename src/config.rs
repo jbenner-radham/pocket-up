@@ -45,7 +45,7 @@ pub struct PocketCoreBios {
     pub path_in_zip: Option<&'static str>,
 }
 
-pub const POCKET_CORES: [PocketCore; 84] = [
+pub const POCKET_CORES: [PocketCore; 83] = [
     PocketCore {
         name: "Amiga 500",
         author: "Mazamars312",
@@ -98,7 +98,7 @@ pub const POCKET_CORES: [PocketCore; 84] = [
         download_url: Some("https://github.com/psomashekar/pram0d-pocket-dist-public/raw/develop/releases/pram0d.bakraid_20221218.zip"),
     },
     PocketCore {
-        name: "Battle Garegga",
+        name: "Battle Garegga / Kingdom Grandprix / Sorcer Striker",
         author: "psomashekar",
         repo: "https://github.com/psomashekar/pram0d-pocket-dist-public",
         bios_files: &[],
@@ -209,13 +209,6 @@ pub const POCKET_CORES: [PocketCore; 84] = [
         repo: "https://github.com/jotego/jtbin",
         bios_files: &[],
         download_url: Some("https://github.com/jotego/jtbin/raw/master/pocket/zips/jotego.jtkicker.zip"),
-    },
-    PocketCore {
-        name: "Kingdom Grandprix",
-        author: "psomashekar",
-        repo: "https://github.com/psomashekar/pram0d-pocket-dist-public",
-        bios_files: &[],
-        download_url: Some("https://github.com/psomashekar/pram0d-pocket-dist-public/raw/develop/releases/pram0d.garegga_20221030.zip"),
     },
     PocketCore {
         name: "Konami's Ping Pong",

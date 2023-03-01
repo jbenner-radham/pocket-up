@@ -41,9 +41,9 @@
             <default>false</default>
             <summary>Should download the Battle Bakraid core by psomashekar?</summary>
         </key>
-        <key name="download-core-battle-garegga-by-psomashekar" type="b">
+        <key name="download-core-battle-garegga-kingdom-grandprix-sorcer-striker-by-psomashekar" type="b">
             <default>false</default>
-            <summary>Should download the Battle Garegga core by psomashekar?</summary>
+            <summary>Should download the Battle Garegga / Kingdom Grandprix / Sorcer Striker core by psomashekar?</summary>
         </key>
         <key name="download-core-congo-bongo-by-opengateware" type="b">
             <default>false</default>
@@ -104,10 +104,6 @@
         <key name="download-core-kicker-by-jotego" type="b">
             <default>false</default>
             <summary>Should download the Kicker core by jotego?</summary>
-        </key>
-        <key name="download-core-kingdom-grandprix-by-psomashekar" type="b">
-            <default>false</default>
-            <summary>Should download the Kingdom Grandprix core by psomashekar?</summary>
         </key>
         <key name="download-core-konami-s-ping-pong-by-jotego" type="b">
             <default>false</default>
