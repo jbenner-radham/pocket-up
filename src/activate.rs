@@ -11,27 +11,24 @@ use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
 
-fn load_css() {
-    if let Some(settings) = gtk::Settings::default() {
-        let display = gdk::Display::default().expect("Could not get default display.");
-        let priority = gtk::STYLE_PROVIDER_PRIORITY_APPLICATION;
-        let provider = gtk::CssProvider::new();
-        let theme_name = settings.gtk_theme_name().unwrap();
+fn load_css(settings: &gtk::Settings) {
+    let display = gdk::Display::default().expect("Could not get default display.");
+    let priority = gtk::STYLE_PROVIDER_PRIORITY_APPLICATION;
+    let provider = gtk::CssProvider::new();
+    let theme_name = settings.gtk_theme_name().unwrap();
 
-        // Check if the current them is a dark variant or if prefer dark theme is set in the GTK settings
-        // and then set the appropriate CSS theme. On the current Ubuntu LTS (22.04) changing the appearance
-        // in the settings app only changes the theme it doesn't trigger the prefer dark theme GTK setting.
-        // Not sure if that behaviour will change in the future.
-        if theme_name.to_lowercase().contains("dark")
-            || settings.is_gtk_application_prefer_dark_theme()
-        {
-            provider.load_from_data(include_str!("../resources/styles/dark.css"));
-        } else {
-            provider.load_from_data(include_str!("../resources/styles/light.css"));
-        }
-
-        gtk::StyleContext::add_provider_for_display(&display, &provider, priority);
+    // Check if the current them is a dark variant or if prefer dark theme is set in the GTK settings
+    // and then set the appropriate CSS theme. On the current Ubuntu LTS (22.04) changing the appearance
+    // in the settings app only changes the theme it doesn't trigger the prefer dark theme GTK setting.
+    // Not sure if that behaviour will change in the future.
+    if theme_name.to_lowercase().contains("dark") || settings.is_gtk_application_prefer_dark_theme()
+    {
+        provider.load_from_data(include_str!("../resources/styles/dark.css"));
+    } else {
+        provider.load_from_data(include_str!("../resources/styles/light.css"));
     }
+
+    gtk::StyleContext::add_provider_for_display(&display, &provider, priority);
 }
 
 pub fn on_activate(app: &gtk::Application) {
@@ -44,8 +41,11 @@ pub fn on_activate(app: &gtk::Application) {
         settings.set_gtk_entry_select_on_focus(false);
 
         // Listen for dark or light mode events and reload the CSS.
-        settings.connect_gtk_application_prefer_dark_theme_notify(|_| load_css());
-        settings.connect_gtk_theme_name_notify(|_| load_css());
+        settings.connect_gtk_application_prefer_dark_theme_notify(load_css);
+        settings.connect_gtk_theme_name_notify(load_css);
+
+        // Initial load of CSS theme.
+        load_css(&settings);
     }
 
     let window = gtk::ApplicationWindow::new(app);
@@ -62,8 +62,6 @@ pub fn on_activate(app: &gtk::Application) {
     let action_set_github_access_token = gio::SimpleAction::new("set-github-access-token", None);
     let action_help = gio::SimpleAction::new("help", None);
     let action_about = gio::SimpleAction::new("about", None);
-
-    load_css();
 
     action_set_github_access_token.connect_activate(clone!(@weak window => move |_, _| {
         build_set_github_access_token_modal(&window).present();
