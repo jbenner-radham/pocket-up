@@ -302,7 +302,33 @@ pub const POCKET_CORES: [PocketCore; 83] = [
         name: "PC Engine CD",
         author: "Mazamars312",
         repo: "https://github.com/Mazamars312/openfpga-pcengine-cd",
-        bios_files: &[],
+        bios_files: &[
+            &PocketCoreBios {
+                path: "Assets/pcecd/common/bios_3_0_usa.pce",
+                url: "https://archive.org/download/htgdb-gamepacks/%40TurboGrafx%20-%20PC%20Engine%20-%20Turbo%20EverDrive%202022-04-22.zip/5%20BIOS%20-%20CD%20Systems%2FUnpatched%2F%5BBIOS%5D%20TurboGrafx%20CD%20Super%20System%20Card%20%28USA%29%20%28v3.0%29.pce",
+                path_in_zip: None,
+            },
+            &PocketCoreBios {
+                path: "Assets/pcecd/common/bios_2_0_usa.pce",
+                url: "https://archive.org/download/htgdb-gamepacks/%40TurboGrafx%20-%20PC%20Engine%20-%20Turbo%20EverDrive%202022-04-22.zip/5%20BIOS%20-%20CD%20Systems%2FUnpatched%2F%5BBIOS%5D%20TurboGrafx%20CD%20System%20Card%20%28USA%29%20%28v2.0%29.pce",
+                path_in_zip: None,
+            },
+            &PocketCoreBios {
+                path: "Assets/pcecd/common/bios_3_0_jap.pce",
+                url: "https://archive.org/download/htgdb-gamepacks/%40TurboGrafx%20-%20PC%20Engine%20-%20Turbo%20EverDrive%202022-04-22.zip/5%20BIOS%20-%20CD%20Systems%2FUnpatched%2F%5BBIOS%5D%20Super%20CD-ROM%20System%20%28Japan%29%20%28v3.0%29.pce",
+                path_in_zip: None,
+            },
+            &PocketCoreBios {
+                path: "Assets/pcecd/common/bios_2_0_jap.pce",
+                url: "https://archive.org/download/htgdb-gamepacks/%40TurboGrafx%20-%20PC%20Engine%20-%20Turbo%20EverDrive%202022-04-22.zip/5%20BIOS%20-%20CD%20Systems%2FUnpatched%2F%5BBIOS%5D%20CD-ROM%20System%20%28Japan%29%20%28v2.0%29.pce",
+                path_in_zip: None,
+            },
+            &PocketCoreBios {
+                path: "Assets/pcecd/common/bios_1_0_jap.pce",
+                url: "https://archive.org/download/htgdb-gamepacks/%40TurboGrafx%20-%20PC%20Engine%20-%20Turbo%20EverDrive%202022-04-22.zip/5%20BIOS%20-%20CD%20Systems%2FUnpatched%2F%5BBIOS%5D%20CD-ROM%20System%20%28Japan%29%20%28v1.0%29.pce",
+                path_in_zip: None,
+            },
+        ],
         download_url: None,
     },
     PocketCore {
