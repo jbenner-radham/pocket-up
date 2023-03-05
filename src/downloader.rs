@@ -3,6 +3,7 @@ use anyhow::anyhow;
 use gtk::gio;
 use gtk::prelude::*;
 use reqwest::header::{self, HeaderMap, HeaderValue};
+use reqwest::StatusCode;
 use std::fs::File;
 use std::path::Path;
 use std::{env, fs, io};
@@ -258,8 +259,8 @@ pub fn fetch_github_release(repo_url: &str) -> anyhow::Result<()> {
         .send()
         .expect("Should have been able to fetch the JSON document");
 
-    match response.status().as_u16() {
-        200 => {
+    match response.status() {
+        StatusCode::OK => {
             // We found the latest release so now we download it.
             let text = match response.text() {
                 Ok(text) => text,
@@ -288,13 +289,13 @@ pub fn fetch_github_release(repo_url: &str) -> anyhow::Result<()> {
 
             fetch_download(download_url)
         }
-        401 => {
+        StatusCode::UNAUTHORIZED => {
             // Got "Unauthorized" from the server.
             return Err(anyhow!(
                 r#"The server returned "Unauthorized". If you have a GitHub access token set it may be incorrect or expired."#
             ));
         }
-        404 => {
+        StatusCode::NOT_FOUND => {
             // No latest release found so it's probably a pre-release so we query the standard
             // releases API and grab the first result. Might have to adjust this later since
             // I'm not sure if the first result is always going to be the newest.
