@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=PocketUp
+Comment=An updater for the Analogue Pocket
+Exec=pocket-up
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;Utility
+Keywords=Pocket;Up

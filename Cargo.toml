@@ -1,12 +1,23 @@
 [package]
 name = "pocket-up"
 version = "0.1.0"
-description = "A forthcoming Linux GUI app to download and update openFPGA cores on the Analogue Pocket."
+description = "An updater for the Analogue Pocket."
 authors = ["James Benner <james.benner@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/jbenner-radham/pocket-up/"
 homepage = "https://github.com/jbenner-radham/pocket-up/"
 edition = "2021"
+
+[package.metadata.deb]
+extended-description = "An app to download and update openFPGA cores on the Analogue Pocket."
+depends = "$auto"
+priority = "optional"
+section = "utils"
+assets = [
+  ["target/release/pocket-up", "usr/bin/", "755"],
+  ["resources/com.radioactivehamster.pocket_up.gschema.xml", "usr/share/glib-2.0/schemas/", "644"],
+  ["deb/usr/share/applications/com.radioactivehamster.pocket_up.desktop", "usr/share/applications/", "644"]
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

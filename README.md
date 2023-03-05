@@ -32,6 +32,26 @@ Then to build:
 cargo build --release
 ```
 
+Package
+-------
+### Debian/Ubuntu
+_Currently tested on Ubuntu 22.04 LTS._
+
+Install `cargo-deb`:
+
+```shell
+rustup update
+cargo install cargo-deb
+```
+
+Run `cargo-deb`:
+
+```shell
+cargo deb
+```
+
+This will produce a file in the form of `target/debian/pocket-up_<version>_<arch>.deb`.
+
 Install
 -------
 ```shell
