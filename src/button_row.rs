@@ -175,7 +175,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         });
     }));
 
-    update_button.connect_clicked(clone!(@weak window => move|_| {
+    update_button.connect_clicked(clone!(@weak window => move |_| {
         let settings = gio::Settings::new(APP_ID);
         let cores_to_download = POCKET_CORES
             .iter()
