@@ -1,6 +1,6 @@
 [package]
 name = "pocket-up"
-version = "0.1.0"
+version = "0.1.1"
 description = "An updater for the Analogue Pocket."
 authors = ["James Benner <james.benner@gmail.com>"]
 license = "MIT"

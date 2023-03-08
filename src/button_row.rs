@@ -3,7 +3,10 @@ use crate::downloader::{fetch_bios, fetch_download, fetch_github_release};
 use gtk::glib::{self, clone};
 use gtk::prelude::*;
 use gtk::{self, gio};
+use std::cell::RefCell;
 use std::path::Path;
+use std::rc::Rc;
+use std::thread;
 
 fn build_modal_child() -> gtk::Box {
     let margin = 12;
@@ -130,8 +133,6 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         .build();
     let directory_button = gtk::Button::builder()
         // Icon names are here: https://developer-old.gnome.org/gtk3/stable/gtk3-Stock-Items.html
-        // and supposedly here: https://developer.gnome.org/gtk/stable/gtk-Stock-Items.html
-        // if the later ever comes back online.
         .icon_name("folder")
         .tooltip_text("Select Folder")
         .margin_top(margin)
@@ -175,59 +176,75 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         });
     }));
 
-    update_button.connect_clicked(clone!(@weak window => move |_| {
+    update_button.connect_clicked(clone!(@weak window => move |button| {
+        let button_label = button.label().expect("Could not get button label.").to_string();
         let settings = gio::Settings::new(APP_ID);
-        let cores_to_download = POCKET_CORES
-            .iter()
-            .filter(|core| settings.get::<bool>(&core.settings_name()))
-            .count();
-        let mut number_of_errors = 0;
+        let cores: Vec<_> = POCKET_CORES.iter().filter(|core| settings.get::<bool>(&core.settings_name())).collect();
+        let cores_to_download = cores.len();
+
+        button.set_sensitive(false);
+        button.set_label("Updating...");
 
         if cores_to_download == 0 {
             build_no_openfpga_cores_selected_modal(&window).present();
         } else {
-            // TODO: Handle errors graciously so one error doesn't stop all remaining downloads!
-            'outer: for core in POCKET_CORES {
-                let should_download_core = settings.get::<bool>(&core.settings_name());
+            let number_of_errors = Rc::new(RefCell::new(0));
+            let (tx_error, rx_error) = glib::MainContext::channel::<anyhow::Error>(glib::PRIORITY_DEFAULT);
+            let (tx_success, rx_success) = glib::MainContext::channel::<&str>(glib::PRIORITY_DEFAULT);
 
-                if !should_download_core {
-                    continue;
+            thread::spawn(move || {
+                // TODO: Handle errors graciously so one error doesn't stop all remaining downloads!
+                'outer: for core in cores {
+                    if let Some(url) = core.download_url {
+                        match fetch_download(url) {
+                            Ok(_) => {}
+                            Err(error) => {
+                                tx_error.send(error).expect("Could not send error message.");
+                                break;
+                            }
+                        };
+                    } else {
+                        match fetch_github_release(core.repo) {
+                            Ok(_) => {}
+                            Err(error) => {
+                                tx_error.send(error).expect("Could not send error message.");
+                                break;
+                            }
+                        };
+                    }
+
+                    '_inner: for bios in core.bios_files {
+                        match fetch_bios(bios) {
+                            Ok(_) => {}
+                            Err(error) => {
+                                tx_error.send(error).expect("Could not send error message.");
+                                break 'outer;
+                            }
+                        };
+                    }
                 }
 
-                if let Some(url) = core.download_url {
-                    match fetch_download(url) {
-                        Ok(_) => {}
-                        Err(error) => {
-                            build_error_modal(&error, &window).present();
-                            number_of_errors += 1;
-                            break;
-                        }
-                    };
-                } else {
-                    match fetch_github_release(core.repo) {
-                        Ok(_) => {}
-                        Err(error) => {
-                            build_error_modal(&error, &window).present();
-                            number_of_errors += 1;
-                            break;
-                        }
-                    };
+                tx_success.send("Cores downloaded!").expect("Could not send success message.");
+            });
+
+            rx_error.attach(None, clone!(@weak window, @strong number_of_errors => @default-return glib::Continue(false), move |error| {
+                *number_of_errors.borrow_mut() += 1;
+
+                build_error_modal(&error, &window).present();
+
+                glib::Continue(true)
+            }));
+
+            rx_success.attach(None, clone!(@strong button, @strong number_of_errors => move |_| {
+                if *number_of_errors.borrow() ==  0 {
+                    build_success_modal(&window).present();
                 }
 
-                '_inner: for bios in core.bios_files {
-                    match fetch_bios(bios) {
-                        Ok(_) => {}
-                        Err(error) => {
-                            build_error_modal(&error, &window).present();
-                            break 'outer;
-                        }
-                    };
-                }
-            }
+                button.set_sensitive(true);
+                button.set_label(&button_label);
 
-            if number_of_errors == 0 {
-                build_success_modal(&window).present();
-            }
+                glib::Continue(false)
+            }));
         }
     }));
 

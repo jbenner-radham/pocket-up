@@ -64,8 +64,10 @@ pub fn unzip_bios(bios: &PocketCoreBios, zip_path: &str) -> anyhow::Result<()> {
     let base_dir = settings.get::<String>("pocket-base-dir");
     let base_path = Path::new(&base_dir);
     let zip_file = File::open(zip_path).unwrap();
-    let mut archive = ZipArchive::new(zip_file).unwrap();
-
+    let mut archive = match ZipArchive::new(zip_file) {
+        Ok(archive) => archive,
+        Err(error) => return Err(anyhow!("Could not create new zip archive: {error}")),
+    };
     if let Some(path_in_zip) = bios.path_in_zip {
         let mut file = archive.by_name(path_in_zip).unwrap();
         let bios_path = Path::new(bios.path);
