@@ -63,7 +63,10 @@ pub fn unzip_bios(bios: &PocketCoreBios, zip_path: &str) -> anyhow::Result<()> {
     let settings = gio::Settings::new(APP_ID);
     let base_dir = settings.get::<String>("pocket-base-dir");
     let base_path = Path::new(&base_dir);
-    let zip_file = File::open(zip_path).unwrap();
+    let zip_file = match File::open(zip_path) {
+        Ok(file) => file,
+        Err(error) => return Err(anyhow!("Could not open zip file: {error}")),
+    };
     let mut archive = match ZipArchive::new(zip_file) {
         Ok(archive) => archive,
         Err(error) => return Err(anyhow!("Could not create new zip archive: {error}")),
@@ -165,8 +168,14 @@ pub fn unzip_to_pocket_dir(zip_path: &str) -> anyhow::Result<()> {
     let settings = gio::Settings::new(APP_ID);
     let base_dir = settings.get::<String>("pocket-base-dir");
     let base_path = Path::new(&base_dir);
-    let file = File::open(zip_path).unwrap();
-    let mut archive = ZipArchive::new(file).unwrap();
+    let file = match File::open(zip_path) {
+        Ok(file) => file,
+        Err(error) => return Err(anyhow!("Could not open zip file: {error}")),
+    };
+    let mut archive = match ZipArchive::new(file) {
+        Ok(archive) => archive,
+        Err(error) => return Err(anyhow!("Could not create new zip archive: {error}")),
+    };
 
     for index in 0..archive.len() {
         let mut file = archive.by_index(index).unwrap();
