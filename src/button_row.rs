@@ -97,6 +97,31 @@ fn build_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
     modal
 }
 
+fn build_partial_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
+    let modal = gtk::Window::builder()
+        .title("Partial Success")
+        .transient_for(window)
+        .modal(true)
+        .build();
+    let child = build_modal_child();
+    let text = textwrap::wrap(
+        "Your openFPGA core(s) have been updated but some errors were encountered.",
+        COLUMN_WIDTH,
+    )
+    .join("\n");
+    let label = gtk::Label::new(Some(&text));
+    let ok_button = gtk::Button::with_mnemonic("_OK");
+
+    ok_button.connect_clicked(clone!(@weak modal => move |_| modal.close()));
+
+    child.append(&label);
+    child.append(&ok_button);
+
+    modal.set_child(Some(&child));
+
+    modal
+}
+
 fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog {
     let title = Some("Select a Folder");
     let parent = Some(window);
@@ -193,14 +218,13 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
             let (tx_success, rx_success) = glib::MainContext::channel::<&str>(glib::PRIORITY_DEFAULT);
 
             thread::spawn(move || {
-                // TODO: Handle errors graciously so one error doesn't stop all remaining downloads!
                 'outer: for core in cores {
                     if let Some(url) = core.download_url {
                         match fetch_download(url) {
                             Ok(_) => {}
                             Err(error) => {
                                 tx_error.send(error).expect("Could not send error message.");
-                                break;
+                                continue;
                             }
                         };
                     } else {
@@ -208,7 +232,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                             Ok(_) => {}
                             Err(error) => {
                                 tx_error.send(error).expect("Could not send error message.");
-                                break;
+                                continue;
                             }
                         };
                     }
@@ -218,7 +242,7 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                             Ok(_) => {}
                             Err(error) => {
                                 tx_error.send(error).expect("Could not send error message.");
-                                break 'outer;
+                                continue 'outer;
                             }
                         };
                     }
@@ -238,6 +262,8 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
             rx_success.attach(None, clone!(@strong button, @strong number_of_errors => move |_| {
                 if *number_of_errors.borrow() ==  0 {
                     build_success_modal(&window).present();
+                } else {
+                    build_partial_success_modal(&window).present();
                 }
 
                 button.set_sensitive(true);
