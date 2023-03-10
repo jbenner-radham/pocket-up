@@ -213,18 +213,19 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
         if cores_to_download == 0 {
             build_no_openfpga_cores_selected_modal(&window).present();
         } else {
+            let number_of_cores_downloaded = Rc::new(RefCell::new(0));
             let number_of_errors = Rc::new(RefCell::new(0));
             let (tx_error, rx_error) = glib::MainContext::channel::<anyhow::Error>(glib::PRIORITY_DEFAULT);
             let (tx_success, rx_success) = glib::MainContext::channel::<&str>(glib::PRIORITY_DEFAULT);
 
-            thread::spawn(move || {
-                'outer: for core in cores {
+
+            for core in cores {
+                thread::spawn(clone!(@strong tx_error, @strong tx_success => move || {
                     if let Some(url) = core.download_url {
                         match fetch_download(url) {
                             Ok(_) => {}
                             Err(error) => {
                                 tx_error.send(error).expect("Could not send error message.");
-                                continue;
                             }
                         };
                     } else {
@@ -232,24 +233,22 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                             Ok(_) => {}
                             Err(error) => {
                                 tx_error.send(error).expect("Could not send error message.");
-                                continue;
                             }
                         };
                     }
 
-                    '_inner: for bios in core.bios_files {
+                    for bios in core.bios_files {
                         match fetch_bios(bios) {
                             Ok(_) => {}
                             Err(error) => {
                                 tx_error.send(error).expect("Could not send error message.");
-                                continue 'outer;
                             }
                         };
                     }
-                }
 
-                tx_success.send("Cores downloaded!").expect("Could not send success message.");
-            });
+                    tx_success.send("Core updated!").expect("Could not send success message.");
+                }));
+            }
 
             rx_error.attach(None, clone!(@weak window, @strong number_of_errors => @default-return glib::Continue(false), move |error| {
                 *number_of_errors.borrow_mut() += 1;
@@ -259,7 +258,13 @@ pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
                 glib::Continue(true)
             }));
 
-            rx_success.attach(None, clone!(@strong button, @strong number_of_errors => move |_| {
+            rx_success.attach(None, clone!(@strong button, @strong number_of_errors, @strong number_of_cores_downloaded, @strong cores_to_download => move |_| {
+                *number_of_cores_downloaded.borrow_mut() += 1;
+
+                if *number_of_cores_downloaded.borrow() != cores_to_download {
+                    return glib::Continue(true);
+                }
+
                 if *number_of_errors.borrow() ==  0 {
                     build_success_modal(&window).present();
                 } else {

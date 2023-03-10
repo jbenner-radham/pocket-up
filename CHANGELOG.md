@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Added more error handling.
 - No longer stops downloading if an error occurs while updating.
+- Cores are now updated simultaneously instead of one at a time. Resulting in faster updates.
 
 [0.1.1] - 2023-03-08
 --------------------
