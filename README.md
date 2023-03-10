@@ -1,9 +1,9 @@
 PocketUp
 ========
-A forthcoming Linux GUI app to download and update openFPGA cores on the Analogue Pocket.
+A Linux GUI app to download and update openFPGA cores on the Analogue Pocket.
 
 <div align="center">
-    <img src="assets/pocket-up.png" alt="An image of PocketUp">
+    <img src="assets/pocket-up.png" alt="PocketUp">
 </div>
 
 Build
