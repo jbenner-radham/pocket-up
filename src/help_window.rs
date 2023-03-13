@@ -5,7 +5,7 @@ fn build_section_header_markup(header: &str) -> String {
     format!(r#"<span size="large"><b>{header}</b></span>"#)
 }
 
-fn build_section_text(sentences: Vec<&str>) -> String {
+fn build_section_text(sentences: &[&str]) -> String {
     let text = sentences.join(" ");
 
     textwrap::wrap(&text, COLUMN_WIDTH).join("\n")
@@ -30,7 +30,7 @@ pub fn build_help_window() -> gtk::Window {
     main_header.set_markup(r#"<span size="xx-large"><b>PocketUp</b></span>"#);
 
     let selecting_your_folder_header = gtk::Label::new(None);
-    let selecting_your_folder_section_text = build_section_text(vec![
+    let selecting_your_folder_section_text = build_section_text(&[
         "Before you start, the first thing you need to do is select the destination folder for your Analogue Pocket's microSD card.",
         r#"You can do this by clicking the folder icon with the "Select Folder" tooltip in the lower left-hand corner of the app."#,
         "This will open up a file chooser dialog, simply select your card and hit OK."
@@ -40,7 +40,7 @@ pub fn build_help_window() -> gtk::Window {
     selecting_your_folder_header.set_markup(&build_section_header_markup("Selecting Your Folder"));
 
     let selecting_your_openfpga_cores_header = gtk::Label::new(None);
-    let selecting_your_openfpga_cores_section_text = build_section_text(vec![
+    let selecting_your_openfpga_cores_section_text = build_section_text(&[
         "Before adding or updating your openFPGA cores you'll need to select them.",
         r#"Simply browse the "openFPGA Cores" section to find your desired cores and click their corresponding switches to change them to the on position."#,
     ]);
@@ -52,7 +52,7 @@ pub fn build_help_window() -> gtk::Window {
     ));
 
     let updating_your_analogue_pocket_header = gtk::Label::new(None);
-    let updating_your_analogue_pocket_section_text = build_section_text(vec![
+    let updating_your_analogue_pocket_section_text = build_section_text(&[
         r#"Now that your ready to load up or update your Analogue Pocket just click the "Update" button in the bottom-right corner of the app."#,
         "Give the app a few seconds to download and extract the files and you're good to go.",
     ]);
@@ -64,7 +64,7 @@ pub fn build_help_window() -> gtk::Window {
     ));
 
     let setting_a_github_access_token_header = gtk::Label::new(None);
-    let setting_a_github_access_token_section_text = build_section_text(vec![
+    let setting_a_github_access_token_section_text = build_section_text(&[
         "The step is optional.",
         "But if you ever have issues downloading openFPGA cores it's probably because you need to set a GitHub access token for the app.",
         "Please reference the GitHub Docs[1] website for instructions on how to do so.",
