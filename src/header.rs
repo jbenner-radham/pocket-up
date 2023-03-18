@@ -1,5 +1,6 @@
 use crate::config::APP_NAME;
-use gtk::{self, gio, traits::WidgetExt};
+use adw::prelude::*;
+use gtk::{self, gio};
 
 pub fn build_header() -> gtk::Label {
     let margin = 8;
@@ -17,7 +18,7 @@ pub fn build_header() -> gtk::Label {
     header
 }
 
-pub fn build_header_bar() -> gtk::HeaderBar {
+pub fn build_header_bar() -> adw::HeaderBar {
     let menu = gio::Menu::new();
     let settings_section = gio::Menu::new();
     let info_section = gio::Menu::new();
@@ -35,12 +36,14 @@ pub fn build_header_bar() -> gtk::HeaderBar {
     menu.append_section(None, &settings_section);
     menu.append_section(None, &info_section);
 
-    let header_bar = gtk::HeaderBar::new();
+    let header_bar = adw::HeaderBar::new();
     let menu_model = gio::MenuModel::from(menu);
     let menu_button = gtk::MenuButton::builder()
         .icon_name("open-menu-symbolic")
         .tooltip_text("Main Menu") // https://developer.gnome.org/hig/patterns/controls/menus.html#primary-menus
         .menu_model(&menu_model)
+        .has_frame(true) // TODO: This doesn't appear to have the desired effect. Look into this!
+        .primary(true) // Adds F10 keybinding: https://gtk-rs.org/gtk4-rs/stable/latest/docs/gtk4/struct.MenuButton.html#primary
         .build();
 
     header_bar.pack_end(&menu_button);

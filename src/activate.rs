@@ -6,16 +6,18 @@ use crate::header::{build_header, build_header_bar};
 use crate::help_window::build_help_window;
 use crate::set_github_access_token_modal::build_set_github_access_token_modal;
 use crate::window_child::build_window_child;
+use adw::prelude::*;
 use gtk::gdk;
 use gtk::glib::{self, clone};
-use gtk::prelude::*;
 use gtk::{self, gio};
 
 fn load_css(settings: &gtk::Settings) {
     let display = gdk::Display::default().expect("Could not get default display.");
     let priority = gtk::STYLE_PROVIDER_PRIORITY_APPLICATION;
     let provider = gtk::CssProvider::new();
-    let theme_name = settings.gtk_theme_name().unwrap();
+    let theme_name = settings
+        .gtk_theme_name()
+        .expect("Could not get theme name.");
 
     // Check if the current them is a dark variant or if prefer dark theme is set in the GTK settings
     // and then set the appropriate CSS theme. On the current Ubuntu LTS (22.04) changing the appearance
@@ -31,7 +33,7 @@ fn load_css(settings: &gtk::Settings) {
     gtk::StyleContext::add_provider_for_display(&display, &provider, priority);
 }
 
-pub fn on_activate(app: &gtk::Application) {
+pub fn on_activate(app: &adw::Application) {
     // https://developer-old.gnome.org/gtk4/stable/GtkSettings.html
     if let Some(settings) = gtk::Settings::default() {
         // Use this for testing dark mode.
@@ -78,11 +80,17 @@ pub fn on_activate(app: &gtk::Application) {
     window.add_action(&action_about);
     window.set_titlebar(Some(&header_bar));
 
+    let list_box = gtk::ListBox::builder()
+        .selection_mode(gtk::SelectionMode::None)
+        .build();
+
     for core in POCKET_CORES {
         let core_row = build_core_row(&core);
 
-        scrolled_child.append(&core_row);
+        list_box.append(&core_row);
     }
+
+    scrolled_child.append(&list_box);
 
     scrolled_window.set_child(Some(&scrolled_child));
 

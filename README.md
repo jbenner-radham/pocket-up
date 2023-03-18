@@ -11,19 +11,19 @@ Build
 Prerequisites for Debian/Ubuntu:
 
 ```shell
-sudo apt install libgtk-4-dev build-essential
+sudo apt install libgtk-4-dev build-essential libadwaita-1-dev
 ```
 
 Prerequisites for Fedora:
 
 ```shell
-sudo dnf install gtk4-devel gcc
+sudo dnf install gtk4-devel gcc libadwaita-devel
 ```
 
 Prerequisites for Arch:
 
 ```shell
-sudo pacman -S gtk4 base-devel
+sudo pacman -S gtk4 base-devel libadwaita
 ```
 
 Then to build:

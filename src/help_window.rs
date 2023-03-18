@@ -1,4 +1,4 @@
-use crate::config::COLUMN_WIDTH;
+use crate::config::{APP_NAME, COLUMN_WIDTH};
 use gtk::prelude::*;
 
 fn build_section_header_markup(header: &str) -> String {
@@ -12,7 +12,9 @@ fn build_section_text(sentences: &[&str]) -> String {
 }
 
 pub fn build_help_window() -> gtk::Window {
-    let help_window = gtk::Window::builder().title("PocketUp Help").build();
+    let help_window = gtk::Window::builder()
+        .title(format!("{APP_NAME} Help"))
+        .build();
     let margin = 12;
     let container = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
@@ -25,9 +27,11 @@ pub fn build_help_window() -> gtk::Window {
         .halign(gtk::Align::Center)
         .build();
     let main_header = gtk::Label::new(None);
-    let main_section = gtk::Label::new(Some("Welcome to the PocketUp help guide."));
+    let main_section = gtk::Label::new(Some(&format!("Welcome to the {APP_NAME} help guide.")));
 
-    main_header.set_markup(r#"<span size="xx-large"><b>PocketUp</b></span>"#);
+    main_header.set_markup(&format!(
+        r#"<span size="xx-large"><b>{APP_NAME}</b></span>"#
+    ));
 
     let selecting_your_folder_header = gtk::Label::new(None);
     let selecting_your_folder_section_text = build_section_text(&[

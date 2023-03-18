@@ -11,7 +11,7 @@ mod window_child;
 
 use crate::config::APP_ID;
 use activate::on_activate;
-use gtk::prelude::*;
+use adw::prelude::*;
 use gtk::{gio, glib};
 use std::path::Path;
 
@@ -22,8 +22,7 @@ fn main() -> glib::ExitCode {
         panic!("The GTK Application ID is not valid!");
     }
 
-    // Create a new application with the builder pattern
-    let app = gtk::Application::builder().application_id(APP_ID).build();
+    let app = adw::Application::builder().application_id(APP_ID).build();
     let settings = gio::Settings::new(APP_ID);
     let pocket_base_dir = settings.get::<String>("pocket-base-dir");
     let path = Path::new(&pocket_base_dir);

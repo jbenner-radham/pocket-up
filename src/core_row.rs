@@ -1,18 +1,19 @@
 use crate::config::{PocketCore, APP_ID};
-use gtk::prelude::*;
+use adw::prelude::*;
 use gtk::{self, gio};
 
-pub fn build_core_row(core: &PocketCore) -> gtk::Box {
+pub fn build_core_row(core: &PocketCore) -> adw::ActionRow {
     let margin = 8;
     let row_horizontal_margin = 28;
-    let row = gtk::Box::builder()
-        .orientation(gtk::Orientation::Horizontal)
+    let row = adw::ActionRow::builder()
+        .activatable(true)
         .margin_top(margin)
         .margin_bottom(margin)
         .margin_start(row_horizontal_margin)
         .margin_end(row_horizontal_margin)
-        .valign(gtk::Align::Center)
-        .halign(gtk::Align::Start)
+        .width_request(450)
+        .title(core.name)
+        .subtitle(core.subtitle_markup())
         .build();
     let switch = gtk::Switch::builder()
         .margin_top(margin)
@@ -24,14 +25,6 @@ pub fn build_core_row(core: &PocketCore) -> gtk::Box {
         .sensitive(false) // Disable initially.
         .state(false)
         .build();
-    let label = gtk::Label::builder()
-        .margin_top(margin)
-        .margin_bottom(margin)
-        .margin_start(margin)
-        .margin_end(margin)
-        .valign(gtk::Align::Center)
-        .halign(gtk::Align::Center)
-        .build();
     let settings = gio::Settings::new(APP_ID);
 
     settings
@@ -42,9 +35,9 @@ pub fn build_core_row(core: &PocketCore) -> gtk::Box {
         .bind(&core.settings_name(), &switch, "state")
         .flags(gio::SettingsBindFlags::DEFAULT)
         .build();
-    label.set_markup(&core.description_markup());
-    row.append(&switch);
-    row.append(&label);
+
+    row.add_prefix(&switch);
+    row.set_activatable_widget(Some(&switch));
 
     row
 }
