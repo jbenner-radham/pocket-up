@@ -1,5 +1,5 @@
 use crate::config::{APP_NAME, COLUMN_WIDTH};
-use gtk::prelude::*;
+use adw::prelude::*;
 
 fn build_section_header_markup(header: &str) -> String {
     format!(r#"<span size="large"><b>{header}</b></span>"#)
@@ -11,8 +11,8 @@ fn build_section_text(sentences: &[&str]) -> String {
     textwrap::wrap(&text, COLUMN_WIDTH).join("\n")
 }
 
-pub fn build_help_window() -> gtk::Window {
-    let help_window = gtk::Window::builder()
+pub fn build_help_window() -> adw::Window {
+    let help_window = adw::Window::builder()
         .title(format!("{APP_NAME} Help"))
         .build();
     let margin = 12;

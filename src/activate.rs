@@ -50,7 +50,7 @@ pub fn on_activate(app: &adw::Application) {
         load_css(&settings);
     }
 
-    let window = gtk::ApplicationWindow::new(app);
+    let window = adw::ApplicationWindow::new(app);
     let window_child = build_window_child();
     let header = build_header();
     let scrolled_window = gtk::ScrolledWindow::builder()
@@ -60,10 +60,12 @@ pub fn on_activate(app: &adw::Application) {
     let scrolled_child = gtk::Box::builder()
         .orientation(gtk::Orientation::Vertical)
         .build();
-    let button_row = build_button_row(&window);
     let action_set_github_access_token = gio::SimpleAction::new("set-github-access-token", None);
     let action_help = gio::SimpleAction::new("help", None);
     let action_about = gio::SimpleAction::new("about", None);
+    let header_bar = build_header_bar();
+    let button_row = build_button_row(&window);
+    let content = gtk::Box::new(gtk::Orientation::Vertical, 0);
 
     action_set_github_access_token.connect_activate(clone!(@weak window => move |_, _| {
         build_set_github_access_token_modal(&window).present();
@@ -73,12 +75,9 @@ pub fn on_activate(app: &adw::Application) {
 
     action_about.connect_activate(|_, _| build_about_dialog().present());
 
-    let header_bar = build_header_bar();
-
     window.add_action(&action_set_github_access_token);
     window.add_action(&action_help);
     window.add_action(&action_about);
-    window.set_titlebar(Some(&header_bar));
 
     let list_box = gtk::ListBox::builder()
         .selection_mode(gtk::SelectionMode::None)
@@ -98,7 +97,10 @@ pub fn on_activate(app: &adw::Application) {
     window_child.append(&scrolled_window);
     window_child.append(&button_row);
 
+    content.append(&header_bar);
+    content.append(&window_child);
+
     window.set_title(Some(APP_NAME));
-    window.set_child(Some(&window_child));
+    window.set_content(Some(&content));
     window.present();
 }

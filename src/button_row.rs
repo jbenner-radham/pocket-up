@@ -1,7 +1,7 @@
 use crate::config::{APP_ID, COLUMN_WIDTH, POCKET_CORES};
 use crate::downloader::{fetch_bios, fetch_download, fetch_github_release};
+use adw::prelude::*;
 use gtk::glib::{self, clone};
-use gtk::prelude::*;
 use gtk::{self, gio};
 use std::cell::RefCell;
 use std::path::Path;
@@ -23,8 +23,8 @@ fn build_modal_child() -> gtk::Box {
         .build()
 }
 
-fn build_error_modal(error: &anyhow::Error, window: &gtk::ApplicationWindow) -> gtk::Window {
-    let modal = gtk::Window::builder()
+fn build_error_modal(error: &anyhow::Error, window: &adw::ApplicationWindow) -> adw::Window {
+    let modal = adw::Window::builder()
         .title("Error")
         .transient_for(window)
         .modal(true)
@@ -45,8 +45,8 @@ fn build_error_modal(error: &anyhow::Error, window: &gtk::ApplicationWindow) -> 
     modal
 }
 
-fn build_no_openfpga_cores_selected_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
-    let modal = gtk::Window::builder()
+fn build_no_openfpga_cores_selected_modal(window: &adw::ApplicationWindow) -> adw::Window {
+    let modal = adw::Window::builder()
         .title("No openFPGA Cores Selected")
         .transient_for(window)
         .modal(true)
@@ -71,8 +71,8 @@ fn build_no_openfpga_cores_selected_modal(window: &gtk::ApplicationWindow) -> gt
     modal
 }
 
-fn build_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
-    let modal = gtk::Window::builder()
+fn build_success_modal(window: &adw::ApplicationWindow) -> adw::Window {
+    let modal = adw::Window::builder()
         .title("Success")
         .transient_for(window)
         .modal(true)
@@ -97,8 +97,8 @@ fn build_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
     modal
 }
 
-fn build_partial_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
-    let modal = gtk::Window::builder()
+fn build_partial_success_modal(window: &adw::ApplicationWindow) -> adw::Window {
+    let modal = adw::Window::builder()
         .title("Partial Success")
         .transient_for(window)
         .modal(true)
@@ -122,7 +122,7 @@ fn build_partial_success_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
     modal
 }
 
-fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog {
+fn build_file_chooser(window: &adw::ApplicationWindow) -> gtk::FileChooserDialog {
     let title = Some("Select a Folder");
     let parent = Some(window);
     let action = gtk::FileChooserAction::SelectFolder;
@@ -145,7 +145,7 @@ fn build_file_chooser(window: &gtk::ApplicationWindow) -> gtk::FileChooserDialog
     file_chooser
 }
 
-pub fn build_button_row(window: &gtk::ApplicationWindow) -> gtk::Box {
+pub fn build_button_row(window: &adw::ApplicationWindow) -> gtk::Box {
     let margin = 8;
     let row = gtk::Box::builder()
         .orientation(gtk::Orientation::Horizontal)

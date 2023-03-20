@@ -1,10 +1,10 @@
 use crate::config::APP_ID;
+use adw::prelude::*;
 use gtk::glib::{self, clone};
-use gtk::prelude::*;
 use gtk::{self, gio};
 
-pub fn build_set_github_access_token_modal(window: &gtk::ApplicationWindow) -> gtk::Window {
-    let modal = gtk::Window::builder()
+pub fn build_set_github_access_token_modal(window: &adw::ApplicationWindow) -> adw::Window {
+    let modal = adw::Window::builder()
         .title("Set GitHub Access Token")
         .width_request(375)
         .transient_for(window)
