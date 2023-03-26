@@ -9,8 +9,8 @@ mod help_window;
 mod set_github_access_token_modal;
 mod window_child;
 
+use crate::activate::on_activate;
 use crate::config::APP_ID;
-use activate::on_activate;
 use adw::prelude::*;
 use gtk::{gio, glib};
 use std::path::Path;
